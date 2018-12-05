@@ -1,25 +1,26 @@
 const {
+  slicer,
   head,
-  outputGenerator,
   processInputFile,
-  processParameters
+  fetchNumberOfLines,
+  fetchParameters
 } = require("../src/head_library");
 
 const {deepEqual,equal} = require("assert");
 
-describe('head', function(){
+describe('slicer', function(){
   describe('for no input',function(){
     it('should return 10 lines', function(){
       let input = ["aimer","aquaTimez","yui","oneOkRock","flow","sketDance","egoist","angela","garnedilia","nanaMizuki"];
       let expected_output = input;
-      deepEqual(head(input),expected_output);
+      deepEqual(slicer(input),expected_output);
     });
   });
   describe('for number of lines specified',function(){
     it('should return number of lines sepcified in argument',function(){
       let input = ["aimer","aquaTimez","yui","oneOkRock","flow","sketDance","egoist","angela","garnedilia","nanaMizuki"];
       let expected_output = input.slice(0,3);
-      deepEqual(head(input,3),expected_output);
+      deepEqual(slicer(input,3),expected_output);
     });
   });
 });
@@ -37,10 +38,28 @@ describe('processInput', function(){
   });
 });
 
-describe('processParameters', function(){
-  it('should give array of required parameters',function(){
-    let parametersList = ["users","file","-n5","testFile"];
-    let expected_output = [5,"testFile"]
-    deepEqual(processParameters(parametersList),expected_output);
+describe('fetchParameters', function(){
+  describe('for -n with numbers of lines provided',function(){
+    it('should give array of required parameters',function(){
+      let parametersList = ["users","file","-n5","testFile"];
+      let expected_output = ["-n5","testFile"]
+      deepEqual(fetchParameters(parametersList),expected_output);
+    });
+  });
+  describe('for only numbers', function(){
+    it('should give the array of required parameters', function(){
+      let parametersList = ["users","file","5","testFile"];
+      let expected_output = ["5","testFile"]
+    });
+  });
+});
+
+describe('fetchNumberOfLines', function(){
+  describe('when number is given with -n',function(){
+    it('should give the number only', function(){
+      let parameter = "-n5";
+      let expected_output = 5;
+      deepEqual(fetchNumberOfLines(parameter),expected_output);
+    });
   });
 });
