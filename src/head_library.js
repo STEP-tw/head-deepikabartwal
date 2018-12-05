@@ -18,7 +18,7 @@ const outputGenerator = function(fs,parameterList){
 
 const processParameters = function(parameterList){
   let requiredParameters = parameterList.slice(2);
-  let numberOfLines = requiredParameters[0].slice(2);
+  let numberOfLines = +requiredParameters[0].slice(2);
   let fileName = requiredParameters[1];
   let parametersToBeUsed = [];
   parametersToBeUsed.push(numberOfLines);
@@ -28,5 +28,6 @@ const processParameters = function(parameterList){
 module.exports = {
   head,
   processInputFile,
+  processParameters,
   outputGenerator
 }

@@ -1,7 +1,8 @@
 const {
   head,
   outputGenerator,
-  processInputFile
+  processInputFile,
+  processParameters
 } = require("../src/head_library");
 
 const {deepEqual,equal} = require("assert");
@@ -33,7 +34,13 @@ describe('processInput', function(){
     file += "this is ending of lines";
     let expected_output = file.split("\n");
     deepEqual(processInputFile(file),expected_output);
-
   });
 });
 
+describe('processParameters', function(){
+  it('should give array of required parameters',function(){
+    let parametersList = ["users","file","-n5","testFile"];
+    let expected_output = [5,"testFile"]
+    deepEqual(processParameters(parametersList),expected_output);
+  });
+});
