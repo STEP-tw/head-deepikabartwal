@@ -24,7 +24,7 @@ const generateErrorText = function(wrongInput){
   let errorTexts = {};
   errorTexts["-n"] = "head: illegal line count --" +wrongInput.slice(2);
   errorTexts["-c"] = "head: illegal byte count --" +wrongInput.slice(2);
-  return errorTexts[wrongInput.slice(0,1)];
+  return errorTexts[wrongInput.slice(0,2)];
 }
 
 const head = function(readFile,parameterList){
@@ -63,5 +63,6 @@ module.exports = {
   fetchParameters,
   fetchNumberOfLines,
   fetchNumber,
+  generateErrorText,
   head
 }

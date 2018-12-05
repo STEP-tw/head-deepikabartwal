@@ -1,4 +1,5 @@
 const {
+  generateErrorText,
   fetchNumber,
   slicer,
   head,
@@ -84,6 +85,14 @@ describe('fetchNumber', function(){
   describe('when a non number value is provided', function(){
     it('should give empty string', function(){
       deepEqual(fetchNumber("","n"),'');
+    });
+  });
+});
+
+describe('generateErrorText', function(){
+  describe('for -n',function(){
+    it('should return error for -n', function(){
+      deepEqual(generateErrorText("-n10x"),"head: illegal line count --10x");
     });
   });
 });
