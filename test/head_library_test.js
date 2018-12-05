@@ -67,4 +67,9 @@ describe('fetchNumberOfLines', function(){
       deepEqual(fetchNumberOfLines("-5"),5);
     });
   });
+  describe('when there is no number given in parameter', function(){
+    it('should return zero', function(){
+      deepEqual(fetchNumberOfLines("-n"),0);
+    });
+  });
 });

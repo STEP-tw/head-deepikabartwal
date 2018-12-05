@@ -7,12 +7,17 @@ const processInputFile = function(file){
   return inputFile;
 }
 
+const fetchNumber = function(string,character){
+  if(!isNaN(character)){
+    string = string+character;
+  }
+  return string;
+}
+
 const fetchNumberOfLines = function(parameter){
   let list = [];
-  let integerList = parameter.split("").reduce((accumulator,x)=>{
-    if(!isNaN(x)) {accumulator.push(x);}
-    return accumulator},[]);
-  let numberOfLines = +integerList.join("");
+  let integerList = parameter.split("").reduce(fetchNumber,"");
+  let numberOfLines = +integerList;
   return numberOfLines;
 }
 
