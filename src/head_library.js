@@ -2,19 +2,31 @@ const head = function(inputfile,numberOfLines=10){
   return inputfile.slice(0,numberOfLines);
 }
 
-const processInput = function(file){
+const processInputFile = function(file){
   let inputFile = file.split("\n");
   return inputFile;
 }
 
-const outputGenerator = function(fs,filename){
+const outputGenerator = function(fs,parameterList){
+  let parametersToBeUsed = processParameters(parameterList);
+  let filename = parametersToBeUsed[1];
+  let numberOfLines = parametersToBeUsed[0];
   let file = fs.readFileSync(filename,'utf-8');
-  let inputFile = processInput(file);
-  return head(inputFile).join("\n");
+  let inputFile = processInputFile(file);
+  return head(inputFile,numberOfLines).join("\n");
 }
 
+const processParameters = function(parameterList){
+  let requiredParameters = parameterList.slice(2);
+  let numberOfLines = requiredParameters[0].slice(2);
+  let fileName = requiredParameters[1];
+  let parametersToBeUsed = [];
+  parametersToBeUsed.push(numberOfLines);
+  parametersToBeUsed.push(fileName);
+  return parametersToBeUsed;
+}
 module.exports = {
   head,
-  processInput,
+  processInputFile,
   outputGenerator
 }

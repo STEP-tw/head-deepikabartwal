@@ -17,9 +17,9 @@ const outputGenerator = require("./src/head_library.js").outputGenerator;
 const fs = require("fs");
 
 const main = function(){
-  let file = process.argv[2];
+  let parameters = process.argv;
 
-  console.log(outputGenerator(fs,file));
+  console.log(outputGenerator(fs,parameters));
 }
 main();
 
