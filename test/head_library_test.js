@@ -1,4 +1,5 @@
 const {
+  extractNumber,
   slicer,
   head,
   processInputFile,

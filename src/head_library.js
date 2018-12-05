@@ -21,12 +21,16 @@ const fetchNumberOfLines = function(parameter){
   return numberOfLines;
 }
 
-const head = function(fs,parameterList){
+const head = function(readFile,parameterList){
   let parametersToBeUsed = fetchParameters(parameterList);
-  let filename = parametersToBeUsed[1];
-  let numberOfLines = parametersToBeUsed[0];
-  let file = fs.readFileSync(filename,'utf-8');
+  let filenameIndex = parametersToBeUsed.length-1;
+  let filename = parametersToBeUsed[filenameIndex];
+  let numberOfLines = fetchNumberOfLines(parametersToBeUsed[0]);
+  let file = readFile(filename,'utf-8');
   let inputFile = processInputFile(file);
+  if(numberOfLines==0){
+    return slicer(inputFile).join("\n");
+  }
   return slicer(inputFile,numberOfLines).join("\n");
 }
 
@@ -47,5 +51,6 @@ module.exports = {
   processInputFile,
   fetchParameters,
   fetchNumberOfLines,
+  fetchNumber,
   head
 }
