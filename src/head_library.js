@@ -20,17 +20,28 @@ const fetchNumberOfLines = function(parameter){
   let numberOfLines = +integerList;
   return numberOfLines;
 }
+const generateErrorText = function(wrongInput){
+  let errorTexts = {};
+  errorTexts["-n"] = "head: illegal line count --" +wrongInput.slice(2);
+  errorTexts["-c"] = "head: illegal byte count --" +wrongInput.slice(2);
+  return errorTexts[wrongInput.slice(0,1)];
+}
 
 const head = function(readFile,parameterList){
   let parametersToBeUsed = fetchParameters(parameterList);
   let filenameIndex = parametersToBeUsed.length-1;
   let filename = parametersToBeUsed[filenameIndex];
-  let numberOfLines = fetchNumberOfLines(parametersToBeUsed[0]);
+  let lastCharacterIndex = parametersToBeUsed[0].length-1;
+   let numberOfLines = fetchNumberOfLines(parametersToBeUsed[0]);
   let file = readFile(filename,'utf-8');
   let inputFile = processInputFile(file);
   if(numberOfLines==0){
     return slicer(inputFile).join("\n");
   }
+  if(isNaN(parametersToBeUsed[0][lastCharacterIndex])){
+      return generateErrorText(parametersToBeUsed[0])
+  }
+
   return slicer(inputFile,numberOfLines).join("\n");
 }
 

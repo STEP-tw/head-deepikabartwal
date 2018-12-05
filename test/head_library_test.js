@@ -1,5 +1,5 @@
 const {
-  extractNumber,
+  fetchNumber,
   slicer,
   head,
   processInputFile,
@@ -71,6 +71,19 @@ describe('fetchNumberOfLines', function(){
   describe('when there is no number given in parameter', function(){
     it('should return zero', function(){
       deepEqual(fetchNumberOfLines("-n"),0);
+    });
+  });
+});
+
+describe('fetchNumber', function(){
+  describe('when number is provided as argument',function(){
+    it('should give number in string form', function(){
+      deepEqual(fetchNumber("",5),'5');
+    });
+  });
+  describe('when a non number value is provided', function(){
+    it('should give empty string', function(){
+      deepEqual(fetchNumber("","n"),'');
     });
   });
 });
