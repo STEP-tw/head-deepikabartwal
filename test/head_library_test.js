@@ -134,4 +134,15 @@ describe('head', function(){
       deepEqual(head(readFile,inputs),expected_output);
     });
   });
+  describe('for only number of lines provided', function(){
+    it('should return the no of lines mentioned', function(){
+      let inputString = "node ./head.js -5 testFile";
+      let inputs = inputString.split(" ");
+      let expected_output = "ram\n";
+      expected_output += "shyam\n";
+      expected_output += "seeta\n";
+      expected_output += "geeta\n";
+      expected_output += "radha";
+    });
+  });
 });
