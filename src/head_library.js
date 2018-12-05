@@ -10,7 +10,7 @@ const processInputFile = function(file){
 const fetchNumberOfLines = function(parameter){
   let list = [];
   let integerList = parameter.split("").reduce((accumulator,x)=>{
-    if(!isNaN(x)) {console.log(x); accumulator.push(x);}
+    if(!isNaN(x)) {accumulator.push(x);}
     return accumulator},[]);
   let numberOfLines = +integerList.join("");
   return numberOfLines;

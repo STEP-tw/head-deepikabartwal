@@ -62,4 +62,9 @@ describe('fetchNumberOfLines', function(){
       deepEqual(fetchNumberOfLines(parameter),expected_output);
     });
   });
+  describe('when number is given as -5', function(){
+    it('should return number', function(){
+      deepEqual(fetchNumberOfLines("-5"),5);
+    });
+  });
 });
