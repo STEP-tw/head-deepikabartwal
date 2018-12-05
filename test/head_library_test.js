@@ -120,7 +120,7 @@ describe('head', function(){
   describe('for default inputs',function(){
     it('should give 10 lines of files as default', function(){
       let inputString = "node ./head.js testFile";
-      let inputs = inputString.split(" ");
+      let parameters = inputString.split(" ");
       let expected_output = "ram\n";
       expected_output += "shyam\n";
       expected_output += "seeta\n";
@@ -131,18 +131,31 @@ describe('head', function(){
       expected_output += "keerthy\n";
       expected_output += "reshmi\n";
       expected_output += "pichiPuli";
-      deepEqual(head(readFile,inputs),expected_output);
+      deepEqual(head(readFile,parameters),expected_output);
     });
   });
   describe('for only number of lines provided', function(){
     it('should return the no of lines mentioned', function(){
       let inputString = "node ./head.js -5 testFile";
-      let inputs = inputString.split(" ");
+      let parameters = inputString.split(" ");
       let expected_output = "ram\n";
       expected_output += "shyam\n";
       expected_output += "seeta\n";
       expected_output += "geeta\n";
       expected_output += "radha";
+      deepEqual(head(readFile,parameters),expected_output);
+    });
+  });
+  describe('for number of lines provided with -n', function(){
+    it('should return the number of lines mentioned with -n', function(){
+      let inputString = "node ./head.js -n5 testFile";
+      let parameters = inputString.split(" ");
+      let expected_output = "ram\n";
+      expected_output += "shyam\n";
+      expected_output += "seeta\n";
+      expected_output += "geeta\n";
+      expected_output += "radha";
+      deepEqual(head(readFile,parameters),expected_output);
     });
   });
 });
