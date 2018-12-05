@@ -10,6 +10,25 @@ const {
 
 const {deepEqual,equal} = require("assert");
 
+const readFile = function(fileName){
+  return dummyFiles[fileName];
+}
+
+const dummyFiles={};
+
+dummyFiles["testFile"] = "ram\n";
+dummyFiles["testFile"] += "shyam\n";
+dummyFiles["testFile"] += "seeta\n";
+dummyFiles["testFile"] += "geeta\n";
+dummyFiles["testFile"] += "radha\n";
+dummyFiles["testFile"] += "athul\n";
+dummyFiles["testFile"] += "arif\n";
+dummyFiles["testFile"] += "keerthy\n";
+dummyFiles["testFile"] += "reshmi\n";
+dummyFiles["testFile"] += "pichiPuli\n";
+dummyFiles["testFile"] += "sai ganesh\n";
+dummyFiles["testFile"] += "leela";
+
 describe('slicer', function(){
   describe('for no input',function(){
     it('should return 10 lines', function(){
@@ -93,6 +112,26 @@ describe('generateErrorText', function(){
   describe('for -n',function(){
     it('should return error for -n', function(){
       deepEqual(generateErrorText("-n10x"),"head: illegal line count --10x");
+    });
+  });
+});
+
+describe('head', function(){
+  describe('for default inputs',function(){
+    it('should give 10 lines of files as default', function(){
+      let inputString = "node ./head.js testFile";
+      let inputs = inputString.split(" ");
+      let expected_output = "ram\n";
+      expected_output += "shyam\n";
+      expected_output += "seeta\n";
+      expected_output += "geeta\n";
+      expected_output += "radha\n";
+      expected_output += "athul\n";
+      expected_output += "arif\n";
+      expected_output += "keerthy\n";
+      expected_output += "reshmi\n";
+      expected_output += "pichiPuli";
+      deepEqual(head(readFile,inputs),expected_output);
     });
   });
 });

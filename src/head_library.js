@@ -32,7 +32,7 @@ const head = function(readFile,parameterList){
   let filenameIndex = parametersToBeUsed.length-1;
   let filename = parametersToBeUsed[filenameIndex];
   let lastCharacterIndex = parametersToBeUsed[0].length-1;
-   let numberOfLines = fetchNumberOfLines(parametersToBeUsed[0]);
+  let numberOfLines = fetchNumberOfLines(parametersToBeUsed[0]);
   let file = readFile(filename,'utf-8');
   let inputFile = processInputFile(file);
   if(numberOfLines==0){
