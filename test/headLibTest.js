@@ -8,9 +8,18 @@ const {
 
 const {deepEqual,equal} = require("assert");
 
-const readFile = function(fileName,encoding){
-  return dummyFiles[fileName];
+const readFile = function(path,encoding){
+  if(encoding!='utf-8') return;
+  const content = dummyFiles[path];
+  if(content == undefined) throw ('no such file ' + path);
+  return content;
+};
+
+const existsSync = function(path){
+  if(dummyFiles[path]==undefined) return false;
+  return true;
 }
+
 const generateLines = function(numberOfLines){
   let line = [];
   for(let i = 1;i<=numberOfLines;i++){
@@ -36,6 +45,11 @@ describe('slicer', function(){
     let input = [1,2,3,4,5,6,7,8,9,10];
     let expected_output = input.slice(0,3);
     deepEqual(slicer(input,3),expected_output);
+  });
+  it("should return same number of lines as input when number of lines specified is more than lines in input", function(){
+    let input = [1,2,3,4,5,6,7,8,9,10,11,12];
+    let expected_output = input;
+    deepEqual(slicer(input,30),expected_output);
   });
 });
 
