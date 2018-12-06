@@ -1,6 +1,4 @@
-const take = function(inputfile,numberOfLines=10){
-  return inputfile.slice(0,numberOfLines);
-}
+const take = require("./utilLib.js").take;
 
 const createHeading = function(fileName){
   return "==> "+fileName+" <==";
@@ -48,7 +46,6 @@ const head = function(readFile,parametersToBeUsed){
 
 
 module.exports = {
-  take,
   fetchNumberOfLines,
   fetchNumber,
   generateErrorText,

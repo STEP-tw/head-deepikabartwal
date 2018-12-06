@@ -1,10 +1,10 @@
 const {
   generateErrorText,
   fetchNumber,
-  take,
   head,
   fetchNumberOfLines,
-} = require("../src/headLib");
+} = require("../src/headLib.js");
+const take = require("../src/utilLib.js").take;
 
 const {deepEqual,equal} = require("assert");
 
