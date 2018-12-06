@@ -5,7 +5,6 @@ const {
   head,
   processInputFile,
   fetchNumberOfLines,
-  fetchParameters
 } = require("../src/headLib");
 
 const {deepEqual,equal} = require("assert");
@@ -58,22 +57,6 @@ describe('processInput', function(){
   });
 });
 
-describe('fetchParameters', function(){
-  describe('for -n with numbers of lines provided',function(){
-    it('should give array of required parameters',function(){
-      let parametersList = ["users","file","-n5","testFile"];
-      let expected_output = ["-n5","testFile"]
-      deepEqual(fetchParameters(parametersList),expected_output);
-    });
-  });
-  describe('for only numbers', function(){
-    it('should give the array of required parameters', function(){
-      let parametersList = ["users","file","5","testFile"];
-      let expected_output = ["5","testFile"]
-    });
-  });
-});
-
 describe('fetchNumberOfLines', function(){
   describe('when number is given with -n',function(){
     it('should give the number only', function(){
@@ -118,8 +101,6 @@ describe('generateErrorText', function(){
 describe('head', function(){
   describe('for default inputs',function(){
     it('should give 10 lines of files as default', function(){
-      let inputString = "node ./head.js testFile";
-      let parameters = inputString.split(" ");
       let expected_output = "ram\n";
       expected_output += "shyam\n";
       expected_output += "seeta\n";
@@ -130,13 +111,13 @@ describe('head', function(){
       expected_output += "keerthy\n";
       expected_output += "reshmi\n";
       expected_output += "pichiPuli";
-      deepEqual(head(readFile,parameters),expected_output);
+      deepEqual(head(readFile,["testFile"]),expected_output);
     });
   });
   describe('for only number of lines provided', function(){
     it('should return the no of lines mentioned', function(){
       let inputString = "node ./head.js -5 testFile";
-      let parameters = inputString.split(" ");
+      let parameters = inputString.split(" ").slice(2);
       let expected_output = "ram\n";
       expected_output += "shyam\n";
       expected_output += "seeta\n";
@@ -148,7 +129,7 @@ describe('head', function(){
   describe('for number of lines provided with -n', function(){
     it('should return the number of lines mentioned with -n', function(){
       let inputString = "node ./head.js -n5 testFile";
-      let parameters = inputString.split(" ");
+      let parameters = inputString.split(" ").slice(2);
       let expected_output = "ram\n";
       expected_output += "shyam\n";
       expected_output += "seeta\n";

@@ -38,8 +38,7 @@ const generateErrorText = function(wrongInput){
   return errorTexts[wrongInput.slice(0,2)];
 }
 
-const head = function(readFile,parameterList){
-  let parametersToBeUsed = fetchParameters(parameterList);
+const head = function(readFile,parametersToBeUsed){
   let filenameIndex = parametersToBeUsed.length-1;
   let filename = parametersToBeUsed[filenameIndex];
   let lastCharacterIndex = parametersToBeUsed[0].length-1;
@@ -60,15 +59,10 @@ const head = function(readFile,parameterList){
   return slicer(inputFile,numberOfLines).join("\n");
 }
 
-const fetchParameters = function(parameterList){
-  let requiredParameters = parameterList.slice(2);
-  return requiredParameters;
-}
 
 module.exports = {
   slicer,
   processInputFile,
-  fetchParameters,
   fetchNumberOfLines,
   fetchNumber,
   generateErrorText,
