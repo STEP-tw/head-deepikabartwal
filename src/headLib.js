@@ -34,7 +34,7 @@ const head = function(readFile,parametersToBeUsed){
   let numberOfLines = fetchNumberOfLines(parametersToBeUsed[0]);
   let lines = readFile(fileName,'utf-8').split("\n");
   if(numberOfLines==0){
-    return take(lines).join("\n");
+    return take(lines,10).join("\n");
   }
   let lastCharacterIndex = parametersToBeUsed[0].length-1;
   if(isNaN(parametersToBeUsed[0][lastCharacterIndex])){

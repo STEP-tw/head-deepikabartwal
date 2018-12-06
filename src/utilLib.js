@@ -1,4 +1,4 @@
-const take = function(list,numberOfElements=10){
+const take = function(list,numberOfElements){
   return list.slice(0,numberOfElements);
 }
 
