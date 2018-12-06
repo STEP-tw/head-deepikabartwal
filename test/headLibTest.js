@@ -1,7 +1,7 @@
 const {
   generateErrorText,
   fetchNumber,
-  slicer,
+  take,
   head,
   fetchNumberOfLines,
 } = require("../src/headLib");
@@ -35,21 +35,21 @@ const dummyFiles={
   "empty.txt":generateLines(0),
 };
 
-describe('slicer', function(){
+describe('take', function(){
   it('should return 10 lines by default', function(){
     let input = [1,2,3,4,5,6,7,8,9,10,11,12];
     let expected_output = input.slice(0,10);
-    deepEqual(slicer(input),expected_output);
+    deepEqual(take(input),expected_output);
   });
   it('should return number of lines specified in argument',function(){
     let input = [1,2,3,4,5,6,7,8,9,10];
     let expected_output = input.slice(0,3);
-    deepEqual(slicer(input,3),expected_output);
+    deepEqual(take(input,3),expected_output);
   });
   it("should return same number of lines as input when number of lines specified is more than lines in input", function(){
     let input = [1,2,3,4,5,6,7,8,9,10,11,12];
     let expected_output = input;
-    deepEqual(slicer(input,30),expected_output);
+    deepEqual(take(input,30),expected_output);
   });
 });
 

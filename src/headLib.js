@@ -1,4 +1,4 @@
-const slicer = function(inputfile,numberOfLines=10){
+const take = function(inputfile,numberOfLines=10){
   return inputfile.slice(0,numberOfLines);
 }
 
@@ -36,19 +36,19 @@ const head = function(readFile,parametersToBeUsed){
   let numberOfLines = fetchNumberOfLines(parametersToBeUsed[0]);
   let lines = readFile(fileName,'utf-8').split("\n");
   if(numberOfLines==0){
-    return slicer(lines).join("\n");
+    return take(lines).join("\n");
   }
   let lastCharacterIndex = parametersToBeUsed[0].length-1;
   if(isNaN(parametersToBeUsed[0][lastCharacterIndex])){
       return generateErrorText(parametersToBeUsed[0])
   }
 
-  return slicer(lines,numberOfLines).join("\n");
+  return take(lines,numberOfLines).join("\n");
 }
 
 
 module.exports = {
-  slicer,
+  take,
   fetchNumberOfLines,
   fetchNumber,
   generateErrorText,
