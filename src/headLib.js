@@ -29,9 +29,12 @@ const fetchFileName = function(parameters){
   return parameters[parameters.length-1];
 }
 
-const head = function(readFile,parametersToBeUsed){
+const head = function(readFile,parametersToBeUsed,existsSync){
   let fileName = fetchFileName(parametersToBeUsed);
   let numberOfLines = fetchNumberOfLines(parametersToBeUsed[0]);
+  if(!existsSync(fileName)){
+    return generateErrorText("nf"+fileName);
+  }
   let lines = readFile(fileName,'utf-8').split("\n");
   if(numberOfLines==0){
     return take(lines,10).join("\n");
