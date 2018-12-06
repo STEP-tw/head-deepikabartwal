@@ -40,22 +40,14 @@ describe('slicer', function(){
 });
 
 describe('fetchNumberOfLines', function(){
-  describe('when number is given with -n',function(){
-    it('should give the number only', function(){
-      let parameter = "-n5";
-      let expected_output = 5;
-      deepEqual(fetchNumberOfLines(parameter),expected_output);
-    });
+    it('should give the number only when number is given with option specified', function(){
+      deepEqual(fetchNumberOfLines("-n5"),5);
   });
-  describe('when number is given as -5', function(){
-    it('should return number', function(){
+    it('should return number when given with "-" only', function(){
       deepEqual(fetchNumberOfLines("-5"),5);
-    });
   });
-  describe('when there is no number given in parameter', function(){
-    it('should return zero', function(){
+    it('should return zero when no number is provided with parameter', function(){
       deepEqual(fetchNumberOfLines("-n"),0);
-    });
   });
 });
 
