@@ -11,20 +11,20 @@ const {deepEqual,equal} = require("assert");
 const readFile = function(fileName,encoding){
   return dummyFiles[fileName];
 }
+const generateLines = function(numberOfLines){
+  let line = [];
+  for(let i = 1;i<=numberOfLines;i++){
+    line.push(i);
+  }
+  return line.join("\n");
+}
 
-const dummyFiles={};
-dummyFiles["testFile"] = "ram\n";
-dummyFiles["testFile"] += "shyam\n";
-dummyFiles["testFile"] += "seeta\n";
-dummyFiles["testFile"] += "geeta\n";
-dummyFiles["testFile"] += "radha\n";
-dummyFiles["testFile"] += "athul\n";
-dummyFiles["testFile"] += "arif\n";
-dummyFiles["testFile"] += "keerthy\n";
-dummyFiles["testFile"] += "reshmi\n";
-dummyFiles["testFile"] += "Puli\n";
-dummyFiles["testFile"] += "sai ganesh\n";
-dummyFiles["testFile"] += "leela";
+const dummyFiles={
+  "tenLines.txt":generateLines(10),
+  "fiveLines.txt":generateLines(5),
+  "fifteenLines.txt":generateLines(15),
+  "empty.txt":generateLines(0),
+};
 
 describe('slicer', function(){
     it('should return 10 lines for no number of lines  specified', function(){
@@ -83,38 +83,21 @@ describe('generateErrorText', function(){
 describe('head', function(){
   describe('for default inputs',function(){
     it('should give 10 lines of files as default', function(){
-      let expected_output = "ram\n";
-      expected_output += "shyam\n";
-      expected_output += "seeta\n";
-      expected_output += "geeta\n";
-      expected_output += "radha\n";
-      expected_output += "athul\n";
-      expected_output += "arif\n";
-      expected_output += "keerthy\n";
-      expected_output += "reshmi\n";
-      expected_output += "Puli";
-      deepEqual(head(readFile,["testFile"]),expected_output);
+      let expected_output = generateLines(10);
+      deepEqual(head(readFile,["fifteenLines.txt"]),expected_output);
     });
   });
   describe('for only number of lines provided', function(){
     it('should return the no of lines mentioned', function(){
-      let parameters = ["-5","testFile"];
-      let expected_output = "ram\n";
-      expected_output += "shyam\n";
-      expected_output += "seeta\n";
-      expected_output += "geeta\n";
-      expected_output += "radha";
+      let parameters = ["-5","tenLines.txt"];
+      let expected_output = generateLines(5);
       deepEqual(head(readFile,parameters),expected_output);
     });
   });
   describe('for number of lines provided with -n', function(){
     it('should return the number of lines mentioned with -n', function(){
-      let parameters = ["-n5","testFile"];
-      let expected_output = "ram\n";
-      expected_output += "shyam\n";
-      expected_output += "seeta\n";
-      expected_output += "geeta\n";
-      expected_output += "radha";
+      let parameters = ["-n5","tenLines.txt"];
+      let expected_output = generateLines(5);
       deepEqual(head(readFile,parameters),expected_output);
     });
   });
