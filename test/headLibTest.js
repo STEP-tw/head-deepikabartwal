@@ -27,58 +27,58 @@ const dummyFiles={
 };
 
 describe('slicer', function(){
-    it('should return 10 lines for no number of lines  specified', function(){
-      let input = [1,2,3,4,5,6,7,8,9,10];
-      let expected_output = input;
-      deepEqual(slicer(input),expected_output);
+  it('should return 10 lines by default', function(){
+    let input = [1,2,3,4,5,6,7,8,9,10,11,12];
+    let expected_output = input.slice(0,10);
+    deepEqual(slicer(input),expected_output);
   });
-    it('should return number of lines specified in argument',function(){
-      let input = [1,2,3,4,5,6,7,8,9,10];
-      let expected_output = input.slice(0,3);
-      deepEqual(slicer(input,3),expected_output);
+  it('should return number of lines specified in argument',function(){
+    let input = [1,2,3,4,5,6,7,8,9,10];
+    let expected_output = input.slice(0,3);
+    deepEqual(slicer(input,3),expected_output);
   });
 });
 
 describe('fetchNumberOfLines', function(){
-    it('should give the number only when number is given with option specified', function(){
-      deepEqual(fetchNumberOfLines("-n5"),5);
+  it('should give the number only when number is given with option specified', function(){
+    deepEqual(fetchNumberOfLines("-n5"),5);
   });
-    it('should return number when given with "-" only', function(){
-      deepEqual(fetchNumberOfLines("-5"),5);
+  it('should return number when given with "-" only', function(){
+    deepEqual(fetchNumberOfLines("-5"),5);
   });
-    it('should return zero when no number is provided with parameter', function(){
-      deepEqual(fetchNumberOfLines("-n"),0);
+  it('should return zero when no number is provided with parameter', function(){
+    deepEqual(fetchNumberOfLines("-n"),0);
   });
 });
 
 describe('fetchNumber', function(){
-    it('should give number in string form when argument contains number', function(){
-      deepEqual(fetchNumber("","5"),'5');
+  it('should give number in string form when argument contains number', function(){
+    deepEqual(fetchNumber("","5"),'5');
   });
-    it('should give empty string when a non number value is provided', function(){
-      deepEqual(fetchNumber("","n"),'');
+  it('should give empty string when a non number value is provided', function(){
+    deepEqual(fetchNumber("","n"),'');
   });
 });
 
 describe('generateErrorText', function(){
-    it('should return error for -n', function(){
-      deepEqual(generateErrorText("-n10x"),"head: illegal line count --10x");
+  it('should return error for -n', function(){
+    deepEqual(generateErrorText("-n10x"),"head: illegal line count --10x");
   });
 });
 
 describe('head', function(){
-    it('should give 10 lines of files as default', function(){
-      let expected_output = generateLines(10);
-      deepEqual(head(readFile,["fifteenLines.txt"]),expected_output);
+  it('should give 10 lines of files as default', function(){
+    let expected_output = generateLines(10);
+    deepEqual(head(readFile,["fifteenLines.txt"]),expected_output);
   });
-    it('should return the no of lines mentioned', function(){
-      let parameters = ["-5","tenLines.txt"];
-      let expected_output = generateLines(5);
-      deepEqual(head(readFile,parameters),expected_output);
+  it('should return the no of lines mentioned', function(){
+    let parameters = ["-5","tenLines.txt"];
+    let expected_output = generateLines(5);
+    deepEqual(head(readFile,parameters),expected_output);
   });
-    it('should return the number of lines mentioned with -n', function(){
-      let parameters = ["-n5","tenLines.txt"];
-      let expected_output = generateLines(5);
-      deepEqual(head(readFile,parameters),expected_output);
+  it('should return the number of lines mentioned with -n', function(){
+    let parameters = ["-n5","tenLines.txt"];
+    let expected_output = generateLines(5);
+    deepEqual(head(readFile,parameters),expected_output);
   });
 });
