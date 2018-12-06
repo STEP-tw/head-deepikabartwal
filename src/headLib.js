@@ -36,7 +36,7 @@ const head = function(readFile,parametersToBeUsed,existsSync){
     return generateErrorText("nf"+fileName);
   }
   let lines = readFile(fileName,'utf-8').split("\n");
-  if(numberOfLines==0){
+  if(numberOfLines==0||parametersToBeUsed.length==1){
     return take(lines,10).join("\n");
   }
   let lastCharacterIndex = parametersToBeUsed[0].length-1;
