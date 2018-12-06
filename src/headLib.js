@@ -40,10 +40,6 @@ const generateErrorText = function(wrongInput){
 
 const head = function(readFile,parameterList){
   let parametersToBeUsed = fetchParameters(parameterList);
-  let numberOfArgument = parametersToBeUsed.length;
-  if(numberOfArgument.length == 1){
-    return(head(parametersToBeUsed[0]));
-  }
   let filenameIndex = parametersToBeUsed.length-1;
   let filename = parametersToBeUsed[filenameIndex];
   let lastCharacterIndex = parametersToBeUsed[0].length-1;
