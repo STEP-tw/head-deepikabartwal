@@ -44,7 +44,6 @@ const fetchFileName = function(parameters){
 
 const head = function(readFile,parametersToBeUsed){
   let fileName = fetchFileName(parametersToBeUsed);
-  let lastCharacterIndex = parametersToBeUsed[0].length-1;
   let numberOfLines = fetchNumberOfLines(parametersToBeUsed[0]);
   let file = readFile(fileName,'utf-8');
   let inputFile = processInputFile(file);
@@ -55,6 +54,7 @@ const head = function(readFile,parametersToBeUsed){
   if(numberOfLines==0){
     return slicer(inputFile).join("\n");
   }
+  let lastCharacterIndex = parametersToBeUsed[0].length-1;
   if(isNaN(parametersToBeUsed[0][lastCharacterIndex])){
       return generateErrorText(parametersToBeUsed[0])
   }
