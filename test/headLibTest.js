@@ -27,7 +27,7 @@ dummyFiles["testFile"] += "sai ganesh\n";
 dummyFiles["testFile"] += "leela";
 
 describe('slicer', function(){
-  describe('for no input',function(){
+  describe('for number of lines not mentioned',function(){
     it('should return 10 lines', function(){
       let input = ["aimer","aquaTimez","yui","oneOkRock","flow","sketDance","egoist","angela","garnedilia","nanaMizuki"];
       let expected_output = input;
