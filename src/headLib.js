@@ -40,20 +40,20 @@ const fetchFileName = function(parameters){
 const head = function(readFile,parametersToBeUsed){
   let fileName = fetchFileName(parametersToBeUsed);
   let numberOfLines = fetchNumberOfLines(parametersToBeUsed[0]);
-  let inputFile = readFile(fileName,'utf-8').split("\n");
+  let lines = readFile(fileName,'utf-8').split("\n");
   if(isNaN(numberOfLines)){
-    let output = numberOfLines +"\n"+createHeading(fileName)+"\n"+ slicer(inputFile).join("\n");
+    let output = numberOfLines +"\n"+createHeading(fileName)+"\n"+ slicer(lines).join("\n");
     return output;
   }
   if(numberOfLines==0){
-    return slicer(inputFile).join("\n");
+    return slicer(lines).join("\n");
   }
   let lastCharacterIndex = parametersToBeUsed[0].length-1;
   if(isNaN(parametersToBeUsed[0][lastCharacterIndex])){
       return generateErrorText(parametersToBeUsed[0])
   }
 
-  return slicer(inputFile,numberOfLines).join("\n");
+  return slicer(lines,numberOfLines).join("\n");
 }
 
 
