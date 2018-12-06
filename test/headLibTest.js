@@ -6,7 +6,7 @@ const {
   processInputFile,
   fetchNumberOfLines,
   fetchParameters
-} = require("../src/head_library");
+} = require("../src/headLib");
 
 const {deepEqual,equal} = require("assert");
 
