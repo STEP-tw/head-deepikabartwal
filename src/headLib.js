@@ -43,13 +43,13 @@ const fetchFileName = function(parameters){
 }
 
 const head = function(readFile,parametersToBeUsed){
-  let filename = fetchFileName(parametersToBeUsed);
+  let fileName = fetchFileName(parametersToBeUsed);
   let lastCharacterIndex = parametersToBeUsed[0].length-1;
   let numberOfLines = fetchNumberOfLines(parametersToBeUsed[0]);
-  let file = readFile(filename,'utf-8');
+  let file = readFile(fileName,'utf-8');
   let inputFile = processInputFile(file);
   if(isNaN(numberOfLines)){
-    let output = numberOfLines +"\n"+createHeading(filename)+"\n"+ slicer(inputFile).join("\n");
+    let output = numberOfLines +"\n"+createHeading(fileName)+"\n"+ slicer(inputFile).join("\n");
     return output;
   }
   if(numberOfLines==0){
