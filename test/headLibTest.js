@@ -22,7 +22,7 @@ dummyFiles["testFile"] += "athul\n";
 dummyFiles["testFile"] += "arif\n";
 dummyFiles["testFile"] += "keerthy\n";
 dummyFiles["testFile"] += "reshmi\n";
-dummyFiles["testFile"] += "pichiPuli\n";
+dummyFiles["testFile"] += "Puli\n";
 dummyFiles["testFile"] += "sai ganesh\n";
 dummyFiles["testFile"] += "leela";
 
@@ -96,14 +96,13 @@ describe('head', function(){
       expected_output += "arif\n";
       expected_output += "keerthy\n";
       expected_output += "reshmi\n";
-      expected_output += "pichiPuli";
+      expected_output += "Puli";
       deepEqual(head(readFile,["testFile"]),expected_output);
     });
   });
   describe('for only number of lines provided', function(){
     it('should return the no of lines mentioned', function(){
-      let inputString = "node ./head.js -5 testFile";
-      let parameters = inputString.split(" ").slice(2);
+      let parameters = ["-5","testFile"];
       let expected_output = "ram\n";
       expected_output += "shyam\n";
       expected_output += "seeta\n";
@@ -114,8 +113,7 @@ describe('head', function(){
   });
   describe('for number of lines provided with -n', function(){
     it('should return the number of lines mentioned with -n', function(){
-      let inputString = "node ./head.js -n5 testFile";
-      let parameters = inputString.split(" ").slice(2);
+      let parameters = ["-n5","testFile"];
       let expected_output = "ram\n";
       expected_output += "shyam\n";
       expected_output += "seeta\n";

@@ -18,9 +18,6 @@ const fetchNumber = function(string,character){
 
 const fetchNumberOfLines = function(parameter){
   let list = [];
-  if(!isNaN(parameter[0])&& parameter[0]!= "-"){
-    return generateErrorText("nf"+parameter);
-  }
   let integerList = parameter.split("").reduce(fetchNumber,"");
   let numberOfLines = +integerList;
   return numberOfLines;
