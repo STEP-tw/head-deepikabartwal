@@ -73,10 +73,8 @@ describe('fetchNumber', function(){
 });
 
 describe('generateErrorText', function(){
-  describe('for -n',function(){
     it('should return error for -n', function(){
       deepEqual(generateErrorText("-n10x"),"head: illegal line count --10x");
-    });
   });
 });
 
