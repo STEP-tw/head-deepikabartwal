@@ -9,11 +9,6 @@ const createHeading = function(fileName){
   return "==> "+fileName+" <==";
 }
 
-const processInputFile = function(file){
-  let inputFile = file.split("\n");
-  return inputFile;
-}
-
 const fetchNumber = function(string,character){
   if(!isNaN(character)){
     string = string+character;
@@ -45,8 +40,7 @@ const fetchFileName = function(parameters){
 const head = function(readFile,parametersToBeUsed){
   let fileName = fetchFileName(parametersToBeUsed);
   let numberOfLines = fetchNumberOfLines(parametersToBeUsed[0]);
-  let file = readFile(fileName,'utf-8');
-  let inputFile = processInputFile(file);
+  let inputFile = readFile(fileName,'utf-8').split("\n");
   if(isNaN(numberOfLines)){
     let output = numberOfLines +"\n"+createHeading(fileName)+"\n"+ slicer(inputFile).join("\n");
     return output;
@@ -65,7 +59,6 @@ const head = function(readFile,parametersToBeUsed){
 
 module.exports = {
   slicer,
-  processInputFile,
   fetchNumberOfLines,
   fetchNumber,
   generateErrorText,
