@@ -38,10 +38,6 @@ const head = function(readFile,parametersToBeUsed){
   let fileName = fetchFileName(parametersToBeUsed);
   let numberOfLines = fetchNumberOfLines(parametersToBeUsed[0]);
   let lines = readFile(fileName,'utf-8').split("\n");
-  if(isNaN(numberOfLines)){
-    let output = numberOfLines +"\n"+createHeading(fileName)+"\n"+ slicer(lines).join("\n");
-    return output;
-  }
   if(numberOfLines==0){
     return slicer(lines).join("\n");
   }
