@@ -60,15 +60,11 @@ describe('fetchNumberOfLines', function(){
 });
 
 describe('fetchNumber', function(){
-  describe('when number is provided as argument',function(){
-    it('should give number in string form', function(){
-      deepEqual(fetchNumber("",5),'5');
-    });
+    it('should give number in string form when argument contains number', function(){
+      deepEqual(fetchNumber("","5"),'5');
   });
-  describe('when a non number value is provided', function(){
-    it('should give empty string', function(){
+    it('should give empty string when a non number value is provided', function(){
       deepEqual(fetchNumber("","n"),'');
-    });
   });
 });
 
