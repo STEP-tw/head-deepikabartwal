@@ -27,19 +27,15 @@ dummyFiles["testFile"] += "sai ganesh\n";
 dummyFiles["testFile"] += "leela";
 
 describe('slicer', function(){
-  describe('for number of lines not mentioned',function(){
-    it('should return 10 lines', function(){
+    it('should return 10 lines for no number of lines  specified', function(){
       let input = ["aimer","aquaTimez","yui","oneOkRock","flow","sketDance","egoist","angela","garnedilia","nanaMizuki"];
       let expected_output = input;
       deepEqual(slicer(input),expected_output);
-    });
   });
-  describe('for number of lines specified',function(){
-    it('should return number of lines sepcified in argument',function(){
+    it('should return number of lines specified in argument',function(){
       let input = ["aimer","aquaTimez","yui","oneOkRock","flow","sketDance","egoist","angela","garnedilia","nanaMizuki"];
       let expected_output = input.slice(0,3);
       deepEqual(slicer(input,3),expected_output);
-    });
   });
 });
 

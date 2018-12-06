@@ -1,5 +1,5 @@
 const slicer = function(inputfile,numberOfLines=10){
-  if(inputfile.length<10){
+  if(inputfile.length<numberOfLines){
     return inputfile.slice(0,inputfile.length-1);
   }
   return inputfile.slice(0,numberOfLines);
