@@ -1,4 +1,7 @@
 const slicer = function(inputfile,numberOfLines=10){
+  if(inputfile.length<10){
+    return inputfile.slice(0,inputfile.length-1);
+  }
   return inputfile.slice(0,numberOfLines);
 }
 
@@ -50,13 +53,6 @@ const fetchParameters = function(parameterList){
   return requiredParameters;
 }
 
-//  let numberOfLines = +requiredParameters[0].slice(2);
-//  let fileName = requiredParameters[1];
-//  let parametersToBeUsed = [];
-//  parametersToBeUsed.push(numberOfLines);
-//  parametersToBeUsed.push(fileName);
-//  return parametersToBeUsed;
-//}
 module.exports = {
   slicer,
   processInputFile,

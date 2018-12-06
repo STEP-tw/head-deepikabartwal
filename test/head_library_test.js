@@ -10,12 +10,11 @@ const {
 
 const {deepEqual,equal} = require("assert");
 
-const readFile = function(fileName){
+const readFile = function(fileName,encoding){
   return dummyFiles[fileName];
 }
 
 const dummyFiles={};
-
 dummyFiles["testFile"] = "ram\n";
 dummyFiles["testFile"] += "shyam\n";
 dummyFiles["testFile"] += "seeta\n";
