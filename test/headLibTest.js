@@ -81,24 +81,18 @@ describe('generateErrorText', function(){
 });
 
 describe('head', function(){
-  describe('for default inputs',function(){
     it('should give 10 lines of files as default', function(){
       let expected_output = generateLines(10);
       deepEqual(head(readFile,["fifteenLines.txt"]),expected_output);
-    });
   });
-  describe('for only number of lines provided', function(){
     it('should return the no of lines mentioned', function(){
       let parameters = ["-5","tenLines.txt"];
       let expected_output = generateLines(5);
       deepEqual(head(readFile,parameters),expected_output);
-    });
   });
-  describe('for number of lines provided with -n', function(){
     it('should return the number of lines mentioned with -n', function(){
       let parameters = ["-n5","tenLines.txt"];
       let expected_output = generateLines(5);
       deepEqual(head(readFile,parameters),expected_output);
-    });
   });
 });
