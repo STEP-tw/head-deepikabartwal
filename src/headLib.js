@@ -5,6 +5,10 @@ const slicer = function(inputfile,numberOfLines=10){
   return inputfile.slice(0,numberOfLines);
 }
 
+const createHeading = function(fileName){
+  return "==> "+fileName+" <==";
+}
+
 const processInputFile = function(file){
   let inputFile = file.split("\n");
   return inputFile;
@@ -30,7 +34,7 @@ const generateErrorText = function(wrongInput){
   let errorTexts = {};
   errorTexts["-n"] = "head: illegal line count --" +wrongInput.slice(2);
   errorTexts["-c"] = "head: illegal byte count --" +wrongInput.slice(2);
-  errorTexts["missingFile"] = "head:" +wrongInput.slice(2) +": No such file or directory"
+  errorTexts["nf"] = "head:" +wrongInput.slice(2) +": No such file or directory"
   return errorTexts[wrongInput.slice(0,2)];
 }
 
@@ -46,6 +50,10 @@ const head = function(readFile,parameterList){
   let numberOfLines = fetchNumberOfLines(parametersToBeUsed[0]);
   let file = readFile(filename,'utf-8');
   let inputFile = processInputFile(file);
+  if(isNaN(numberOfLines)){
+    let output = numberOfLines +"\n"+createHeading(filename)+"\n"+ slicer(inputFile).join("\n");
+    return output;
+  }
   if(numberOfLines==0){
     return slicer(inputFile).join("\n");
   }
