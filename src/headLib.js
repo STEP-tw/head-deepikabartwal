@@ -38,9 +38,12 @@ const generateErrorText = function(wrongInput){
   return errorTexts[wrongInput.slice(0,2)];
 }
 
+const fetchFileName = function(parameters){
+  return parameters[parameters.length-1];
+}
+
 const head = function(readFile,parametersToBeUsed){
-  let filenameIndex = parametersToBeUsed.length-1;
-  let filename = parametersToBeUsed[filenameIndex];
+  let filename = fetchFileName(parametersToBeUsed);
   let lastCharacterIndex = parametersToBeUsed[0].length-1;
   let numberOfLines = fetchNumberOfLines(parametersToBeUsed[0]);
   let file = readFile(filename,'utf-8');
