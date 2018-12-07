@@ -12,14 +12,16 @@ const take = require("../src/utilLib.js").take;
 
 const {deepEqual,equal} = require("assert");
 
-const readFile = function(path,encoding){
+const fs = {};
+
+fs.readFile = function(path,encoding){
   if(encoding!='utf-8') return;
   const content = dummyFiles[path];
   if(content == undefined) throw ('no such file ' + path);
   return content;
 };
 
-const existsSync = function(path){
+fs.existsSync = function(path){
   if(dummyFiles[path]==undefined) return false;
   return true;
 }
@@ -87,17 +89,22 @@ describe('generateErrorText', function(){
 describe('head', function(){
   it('should give 10 lines of files as default', function(){
     let expected_output = generateLines(10);
-    deepEqual(head(readFile,["fifteenLines.txt"],existsSync),expected_output);
+    deepEqual(head(fs,["fifteenLines.txt"]),expected_output);
   });
   it('should return the no of lines mentioned', function(){
     let parameters = ["-5","tenLines.txt"];
     let expected_output = generateLines(5);
-    deepEqual(head(readFile,parameters,existsSync),expected_output);
+    deepEqual(head(fs,parameters),expected_output);
   });
   it('should return the number of lines mentioned with -n', function(){
     let parameters = ["-n5","tenLines.txt"];
     let expected_output = generateLines(5);
-    deepEqual(head(readFile,parameters,existsSync),expected_output);
+    deepEqual(head(fs,parameters),expected_output);
+  });
+  it('should return error when missing file is given',function(){
+    let parameters = ["twentyLines.txt"];
+    let expected_output = "head:twentyLines.txt: No such file or directory";
+    deepEqual(head(fs,parameters),expected_output);
   });
 });
 
@@ -130,6 +137,9 @@ describe('parseParasWithOption',function(){
 describe('parseParameters',function(){
   it('should return default parameter object when only file names is given',function(){
     deepEqual(parseParameters(["file.txt"]),{"option":"-n","count":10,"filenames":["file.txt"]});
+  });
+  it('should return object with specified options',function(){
+    deepEqual(parseParameters(["-2","testFile"]),{"option":"-n","count":2,"filenames":["testFile"]});
   });
 });
 

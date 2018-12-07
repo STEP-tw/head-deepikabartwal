@@ -29,20 +29,17 @@ const fetchFileName = function(parameters){
   return parameters[parameters.length-1];
 }
 
-const head = function(readFile,parametersToBeUsed,existsSync){
+const head = function(fs,parametersToBeUsed){
   let fileName = fetchFileName(parametersToBeUsed);
   let numberOfLines = fetchNumberOfLines(parametersToBeUsed[0]);
-  if(!existsSync(fileName)){
+  if(!fs.existsSync(fileName)){
     return generateErrorText("nf"+fileName);
   }
-  let lines = readFile(fileName,'utf-8').split("\n");
+  let lines = fs.readFile(fileName,'utf-8').split("\n");
   if(numberOfLines==0||parametersToBeUsed.length==1){
     return take(lines,10).join("\n");
   }
   let lastCharacterIndex = parametersToBeUsed[0].length-1;
-  if(isNaN(parametersToBeUsed[0][lastCharacterIndex])){
-      return generateErrorText(parametersToBeUsed[0])
-  }
   return take(lines,numberOfLines).join("\n");
 }
 
@@ -50,12 +47,12 @@ const createParasObject = function(option,count,filenames){
   return {option,count,filenames};
 }
 
-const isOptionSpecified = function(optionParaCandidate){
+const validateOption = function(optionParaCandidate){
   return optionParaCandidate == "-n" || optionParaCandidate == "-c;"
 }
 
 const parseParasWithOption = function(parameters){
-  if(isOptionSpecified(parameters[0])){
+  if(validateOption(parameters[0])){
     return createParasObject(parameters[0],+parameters[1].slice(1),parameters.slice(2));
   }
   if(!isNaN(parameters[0].slice(1))){
@@ -70,6 +67,7 @@ const parseParameters = function(parameters){
   }
   return createParasObject("-n","10",parameters);
 }
+
 
 module.exports = {
   createParasObject,
