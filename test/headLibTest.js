@@ -99,6 +99,13 @@ describe('head', function(){
       equal(head(fs,argv('fifteenLines.txt')),tenLines);
     });
   });
+  describe("node head fiveLines.txt",()=>{
+    it('should give 5 lines',()=>{
+      let fiveLines = generateLines(5);
+      equal(head(fs,argv('fiveLines.txt')),fiveLines);
+    });
+  });
+
   describe("node head -5 tenLines.txt",()=>{
     it('should give 5 lines', function(){
       let fiveLines = generateLines(5);
