@@ -1,2 +1,2 @@
 .*.sw*
-testFile
+.nyc_output/

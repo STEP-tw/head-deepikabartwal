@@ -1,4 +1,8 @@
 const {
+  createHeading,
+  createParasObject,
+  parseParasWithOption,
+  parseParameters,
   generateErrorText,
   fetchNumber,
   head,
@@ -83,16 +87,49 @@ describe('generateErrorText', function(){
 describe('head', function(){
   it('should give 10 lines of files as default', function(){
     let expected_output = generateLines(10);
-    deepEqual(head(readFile,["fifteenLines.txt"]),expected_output);
+    deepEqual(head(readFile,["fifteenLines.txt"],existsSync),expected_output);
   });
   it('should return the no of lines mentioned', function(){
     let parameters = ["-5","tenLines.txt"];
     let expected_output = generateLines(5);
-    deepEqual(head(readFile,parameters),expected_output);
+    deepEqual(head(readFile,parameters,existsSync),expected_output);
   });
   it('should return the number of lines mentioned with -n', function(){
     let parameters = ["-n5","tenLines.txt"];
     let expected_output = generateLines(5);
-    deepEqual(head(readFile,parameters),expected_output);
+    deepEqual(head(readFile,parameters,existsSync),expected_output);
   });
 });
+
+describe('createHeading',function(){
+  it("should create heading for given file name", function(){
+    deepEqual(createHeading("sample.txt"),"==> sample.txt <==");
+    deepEqual(createHeading("filenames.txt"),"==> filenames.txt <==");
+  });
+});
+
+describe('createParasObject',function(){
+  it('should return the object of parameters specified in arguments',function(){
+    deepEqual(createParasObject("-n",100,["testFile"]),{"option":"-n","count":100,"filenames":["testFile"]});
+    deepEqual(createParasObject("-c",12,["testfile","sampleFile","addFunction.js"]),{"option":"-c","count":12,"filenames":["testfile","sampleFile","addFunction.js"]});
+  });
+});
+
+describe('parseParasWithOption',function(){
+  it('should return the object of parameters when -n or -c are specified separately',function(){
+    deepEqual(parseParasWithOption(["-n","-3","testfile"]),{"option":"-n","count":3,"filenames":["testfile"]});
+  });
+  it('should return the object of parameters with -n as option when only count is specified',function(){
+    deepEqual(parseParasWithOption(["-3","testfile"]),{"option":"-n","count":3,"filenames":["testfile"]});
+  });
+  it('should return the object of parameters when -n or -c are specified with count',function(){
+    deepEqual(parseParasWithOption(["-n7","testfile"]),{"option":"-n","count":7,"filenames":["testfile"]});
+  });
+});
+
+describe('parseParameters',function(){
+  it('should return default parameter object when only file names is given',function(){
+    deepEqual(parseParameters(["file.txt"]),{"option":"-n","count":10,"filenames":["file.txt"]});
+  });
+});
+

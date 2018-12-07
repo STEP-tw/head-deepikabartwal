@@ -43,14 +43,41 @@ const head = function(readFile,parametersToBeUsed,existsSync){
   if(isNaN(parametersToBeUsed[0][lastCharacterIndex])){
       return generateErrorText(parametersToBeUsed[0])
   }
-
   return take(lines,numberOfLines).join("\n");
 }
 
+const createParasObject = function(option,count,filenames){
+  return {option,count,filenames};
+}
+
+const isOptionSpecified = function(optionParaCandidate){
+  return optionParaCandidate == "-n" || optionParaCandidate == "-c;"
+}
+
+const parseParasWithOption = function(parameters){
+  if(isOptionSpecified(parameters[0])){
+    return createParasObject(parameters[0],+parameters[1].slice(1),parameters.slice(2));
+  }
+  if(!isNaN(parameters[0].slice(1))){
+    return createParasObject("-n",+parameters[0].slice(1),parameters.slice(1));
+  }
+  return createParasObject(parameters[0].slice(0,2),+parameters[0].slice(2),parameters.slice(1));
+}
+
+const parseParameters = function(parameters){
+  if(parameters[0].startsWith("-")){
+    return parseParasWithOption(parameters);
+  }
+  return createParasObject("-n","10",parameters);
+}
 
 module.exports = {
+  createParasObject,
   fetchNumberOfLines,
   fetchNumber,
+  createHeading,
   generateErrorText,
+  parseParasWithOption,
+  parseParameters,
   head
 }
