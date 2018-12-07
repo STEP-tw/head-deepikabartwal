@@ -93,19 +93,23 @@ describe('head', function(){
       equal(head(fs,argv('empty.txt')),'');
     })
   });
-  it('should give 10 lines of files as default', function(){
-    let expected_output = generateLines(10);
-    deepEqual(head(fs,["fifteenLines.txt"]),expected_output);
+  describe("node head fifteenLines.text",()=>{
+    it('should give 10 lines', function(){
+      let expected_output = generateLines(10);
+      deepEqual(head(fs,["fifteenLines.txt"]),expected_output);
+    });
   });
-  it('should return the no of lines mentioned', function(){
-    let parameters = ["-5","tenLines.txt"];
-    let expected_output = generateLines(5);
-    deepEqual(head(fs,parameters),expected_output);
+  describe("node head tenLines.txt",()=>{
+    it('should return 5 lines', function(){
+      let parameters = ["-5","tenLines.txt"];
+      let expected_output = generateLines(5);
+      deepEqual(head(fs,parameters),expected_output);
+    });
   });
-  it('should return the number of lines mentioned with -n', function(){
-    let parameters = ["-n5","tenLines.txt"];
-    let expected_output = generateLines(5);
-    deepEqual(head(fs,parameters),expected_output);
+    it('should return the number of lines mentioned with -n', function(){
+      let parameters = ["-n5","tenLines.txt"];
+      let expected_output = generateLines(5);
+      deepEqual(head(fs,parameters),expected_output);
   });
   it('should return error when missing file is given',function(){
     let parameters = ["twentyLines.txt"];
