@@ -120,8 +120,14 @@ describe('head', function(){
   });
   describe("node head missingFile.txt",()=>{
     it('should return error when missing file is given',function(){
-      let errorMessage = "head:missingFile.txt: No such file or directory";
+      let errorMessage = "head: missingFile.txt: No such file or directory";
       deepEqual(head(fs,argv('missingFile.txt')),errorMessage);
+    });
+  });
+  describe('node head fiveLines.txt fifteenLines.txt', function(){
+    it('should give 5,10 lines of the files with title', function(){
+      let expected_output = ['==> data/fiveLines.txt <==',generateLines(5),'==> data/fifteenLines.txt <==',generateLines(10)].join('\n');
+      equal(head(fs,argv('fiveLines.text fifteenLines.txt')),expected_output);
     });
   });
 });
