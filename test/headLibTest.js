@@ -14,7 +14,7 @@ const {deepEqual,equal} = require("assert");
 
 const fs = {};
 
-fs.readFile = function(path,encoding){
+fs.readFileSync = function(path,encoding){
   if(encoding!='utf-8') return;
   const content = dummyFiles[path];
   if(content == undefined) throw ('no such file ' + path);
@@ -86,7 +86,13 @@ describe('generateErrorText', function(){
   });
 });
 
+let argv = text => text.split(" ");
 describe('head', function(){
+  describe("node head empty.txt",()=>{
+    it('should give zero lines',()=>{
+      equal(head(fs,argv('empty.txt')),'');
+    })
+  });
   it('should give 10 lines of files as default', function(){
     let expected_output = generateLines(10);
     deepEqual(head(fs,["fifteenLines.txt"]),expected_output);

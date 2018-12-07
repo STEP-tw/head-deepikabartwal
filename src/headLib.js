@@ -35,7 +35,7 @@ const head = function(fs,parametersToBeUsed){
   if(!fs.existsSync(fileName)){
     return generateErrorText("nf"+fileName);
   }
-  let lines = fs.readFile(fileName,'utf-8').split("\n");
+  let lines = fs.readFileSync(fileName,'utf-8').split("\n");
   if(numberOfLines==0||parametersToBeUsed.length==1){
     return take(lines,10).join("\n");
   }
@@ -67,7 +67,6 @@ const parseParameters = function(parameters){
   }
   return createParasObject("-n","10",parameters);
 }
-
 
 module.exports = {
   createParasObject,
