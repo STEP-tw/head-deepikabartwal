@@ -95,26 +95,27 @@ describe('head', function(){
   });
   describe("node head fifteenLines.text",()=>{
     it('should give 10 lines', function(){
-      let expected_output = generateLines(10);
-      deepEqual(head(fs,["fifteenLines.txt"]),expected_output);
+      let tenLines = generateLines(10);
+      equal(head(fs,argv('fifteenLines.txt')),tenLines);
     });
   });
-  describe("node head tenLines.txt",()=>{
+  describe("node head -5 tenLines.txt",()=>{
+    it('should give 5 lines', function(){
+      let fiveLines = generateLines(5);
+      equal(head(fs,argv('-5 tenLines.txt')),fiveLines);
+    });
+  });
+  describe("node head -n5 tenLines.txt",()=>{
     it('should return 5 lines', function(){
-      let parameters = ["-5","tenLines.txt"];
-      let expected_output = generateLines(5);
-      deepEqual(head(fs,parameters),expected_output);
+      let fiveLines = generateLines(5);
+      deepEqual(head(fs,argv('-n5 tenLines.txt')),fiveLines);
     });
   });
-    it('should return the number of lines mentioned with -n', function(){
-      let parameters = ["-n5","tenLines.txt"];
-      let expected_output = generateLines(5);
-      deepEqual(head(fs,parameters),expected_output);
-  });
-  it('should return error when missing file is given',function(){
-    let parameters = ["twentyLines.txt"];
-    let expected_output = "head:twentyLines.txt: No such file or directory";
-    deepEqual(head(fs,parameters),expected_output);
+  describe("node head missingFile.txt",()=>{
+    it('should return error when missing file is given',function(){
+      let errorMessage = "head:missingFile.txt: No such file or directory";
+      deepEqual(head(fs,argv('missingFile.txt')),errorMessage);
+    });
   });
 });
 
