@@ -1,8 +1,5 @@
 const take = require("./utilLib.js").take;
 
-const createHeading = function(fileName){
-  return "==> "+fileName+" <==";
-}
 
 const fetchNumber = function(string,character){
   if(!isNaN(character)){
@@ -25,29 +22,37 @@ const generateErrorText = function(wrongInput){
   return errorTexts[wrongInput.slice(0,2)];
 }
 
-const fetchFileName = function(parameters){
-  return parameters[parameters.length-1];
-}
-const parseArgs = (args)=>{
-  const userInput = {};
-  userInput.fileName = fetchFileName(args);
-  userInput.numberOfLines = fetchNumberOfLines(args[0]);
-  return userInput;
-};
-const head = function(fs,args){
-  let {fileName,numberOfLines} = parseArgs(args);
-  if(!fs.existsSync(fileName)){
-    return generateErrorText("nf"+fileName);
+const parseArgs = function(args){
+  if(args[0].startsWith("-")){
+    return parseParasWithOption(args);
   }
-  let lines = fs.readFileSync(fileName,'utf-8').split("\n");
-  if(numberOfLines==0||args.length==1){
-    return take(lines,10).join("\n");
-  }
-  let lastCharacterIndex = args[0].length-1;
-  return take(lines,numberOfLines).join("\n");
+  return createArgsObject("-n","10",args);
 }
 
-const createParasObject = function(option,count,filenames){
+const head = function(fs,args){
+  let {option,count,filenames} = parseArgs(args);
+  const getLines = function(path){
+    if(!fs.existsSync(path)){
+      return generateErrorText("nf"+path);
+    }
+    let lines = fs.readFileSync(path,'utf-8').split("\n");
+    return take(lines,count).join("\n");
+  }
+  const getLineWithHeadings = function(path){
+    let heading = "==> "+path+" <==";
+    return heading + "\n" + getLines(path);
+  }
+  if(filenames.length>1){
+    return filenames.map(getLineWithHeadings).join("\n");
+  }
+  return filenames.map(getLines).join("\n");
+}
+
+const createArgsObject = function(type,count,filenames){
+  let option = 'lines';
+  if(type == '-c'){
+    option = 'characters';
+  }
   return {option,count,filenames};
 }
 
@@ -57,28 +62,20 @@ const validateOption = function(optionParaCandidate){
 
 const parseParasWithOption = function(parameters){
   if(validateOption(parameters[0])){
-    return createParasObject(parameters[0],+parameters[1].slice(1),parameters.slice(2));
+    return createArgsObject(parameters[0],+parameters[1].slice(1),parameters.slice(2));
   }
   if(!isNaN(parameters[0].slice(1))){
-    return createParasObject("-n",+parameters[0].slice(1),parameters.slice(1));
+    return createArgsObject("-n",+parameters[0].slice(1),parameters.slice(1));
   }
-  return createParasObject(parameters[0].slice(0,2),+parameters[0].slice(2),parameters.slice(1));
-}
-
-const parseParameters = function(parameters){
-  if(parameters[0].startsWith("-")){
-    return parseParasWithOption(parameters);
-  }
-  return createParasObject("-n","10",parameters);
+  return createArgsObject(parameters[0].slice(0,2),+parameters[0].slice(2),parameters.slice(1));
 }
 
 module.exports = {
-  createParasObject,
+  createArgsObject,
   fetchNumberOfLines,
   fetchNumber,
-  createHeading,
   generateErrorText,
   parseParasWithOption,
-  parseParameters,
+  parseArgs,
   head
 }
