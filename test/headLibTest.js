@@ -1,8 +1,7 @@
 const {
-  createHeading,
-  createParasObject,
+  createArgsObject,
   parseParasWithOption,
-  parseParameters,
+  parseArgs,
   generateErrorText,
   fetchNumber,
   head,
@@ -126,44 +125,42 @@ describe('head', function(){
   });
   describe('node head fiveLines.txt fifteenLines.txt', function(){
     it('should give 5,10 lines of the files with title', function(){
-      let expected_output = ['==> data/fiveLines.txt <==',generateLines(5),'==> data/fifteenLines.txt <==',generateLines(10)].join('\n');
-      equal(head(fs,argv('fiveLines.text fifteenLines.txt')),expected_output);
+      let expected_output = ['==> fiveLines.txt <==',generateLines(5),'==> fifteenLines.txt <==',generateLines(10)].join('\n');
+      equal(head(fs,argv('fiveLines.txt fifteenLines.txt')),expected_output);
     });
   });
 });
 
-describe('createHeading',function(){
-  it("should create heading for given file name", function(){
-    deepEqual(createHeading("sample.txt"),"==> sample.txt <==");
-    deepEqual(createHeading("filenames.txt"),"==> filenames.txt <==");
-  });
-});
 
-describe('createParasObject',function(){
+describe('createArgsObject',function(){
   it('should return the object of parameters specified in arguments',function(){
-    deepEqual(createParasObject("-n",100,["testFile"]),{"option":"-n","count":100,"filenames":["testFile"]});
-    deepEqual(createParasObject("-c",12,["testfile","sampleFile","addFunction.js"]),{"option":"-c","count":12,"filenames":["testfile","sampleFile","addFunction.js"]});
+    deepEqual(createArgsObject("-n",100,["testFile"]),{"option":"lines","count":100,"filenames":["testFile"]});
+    deepEqual(createArgsObject("-c",12,["testfile","sampleFile","addFunction.js"]),{"option":"characters","count":12,"filenames":["testfile","sampleFile","addFunction.js"]});
   });
 });
 
 describe('parseParasWithOption',function(){
   it('should return the object of parameters when -n or -c are specified separately',function(){
-    deepEqual(parseParasWithOption(["-n","-3","testfile"]),{"option":"-n","count":3,"filenames":["testfile"]});
+    deepEqual(parseParasWithOption(["-n","-3","testfile"]),{"option":"lines","count":3,"filenames":["testfile"]});
   });
   it('should return the object of parameters with -n as option when only count is specified',function(){
-    deepEqual(parseParasWithOption(["-3","testfile"]),{"option":"-n","count":3,"filenames":["testfile"]});
+    deepEqual(parseParasWithOption(["-3","testfile"]),{"option":"lines","count":3,"filenames":["testfile"]});
   });
   it('should return the object of parameters when -n or -c are specified with count',function(){
-    deepEqual(parseParasWithOption(["-n7","testfile"]),{"option":"-n","count":7,"filenames":["testfile"]});
+    deepEqual(parseParasWithOption(["-n7","testfile"]),{"option":"lines","count":7,"filenames":["testfile"]});
   });
 });
 
-describe('parseParameters',function(){
-  it('should return default parameter object when only file names is given',function(){
-    deepEqual(parseParameters(["file.txt"]),{"option":"-n","count":10,"filenames":["file.txt"]});
+describe('parseArgs',function(){
+  describe('node head file.txt', function(){
+    it('should return default parameter object when only file names is given',function(){
+      deepEqual(parseArgs(argv('file.txt')),{'option':'lines','count':10,'filenames':['file.txt']});
+    });
   });
-  it('should return object with specified options',function(){
-    deepEqual(parseParameters(["-2","testFile"]),{"option":"-n","count":2,"filenames":["testFile"]});
+  describe('node head -2 file.txt', function(){
+    it('should return object with specified options',function(){
+      deepEqual(parseArgs(argv('-2 testFile')),{'option':'lines','count':2,'filenames':['testFile']});
+    });
   });
 });
 
