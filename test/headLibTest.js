@@ -1,6 +1,6 @@
 const {
   createArgsObject,
-  parseParasWithOption,
+  parseArgsWithOption,
   parseArgs,
   generateErrorText,
   fetchNumber,
@@ -139,15 +139,15 @@ describe('createArgsObject',function(){
   });
 });
 
-describe('parseParasWithOption',function(){
+describe('parseArgsWithOption',function(){
   it('should return the object of parameters when -n or -c are specified separately',function(){
-    deepEqual(parseParasWithOption(["-n","-3","testfile"]),{"option":"lines","count":3,"filenames":["testfile"]});
+    deepEqual(parseArgsWithOption(["-n","-3","testfile"]),{"option":"lines","count":3,"filenames":["testfile"]});
   });
   it('should return the object of parameters with -n as option when only count is specified',function(){
-    deepEqual(parseParasWithOption(["-3","testfile"]),{"option":"lines","count":3,"filenames":["testfile"]});
+    deepEqual(parseArgsWithOption(["-3","testfile"]),{"option":"lines","count":3,"filenames":["testfile"]});
   });
   it('should return the object of parameters when -n or -c are specified with count',function(){
-    deepEqual(parseParasWithOption(["-n7","testfile"]),{"option":"lines","count":7,"filenames":["testfile"]});
+    deepEqual(parseArgsWithOption(["-n7","testfile"]),{"option":"lines","count":7,"filenames":["testfile"]});
   });
 });
 
