@@ -119,6 +119,30 @@ describe('head', function(){
       deepEqual(head(fs,argv('-n 5 fiveLines.txt fifteenLines.txt')),expected_output);
     });
   });
+  describe('node head -n 0 fiveLines.txt',function(){
+    it('should give illegal count error for zero as count',function(){
+      let expected_output = "head: illegal line count -- 0";
+      deepEqual(head(fs,argv('-n 0 fiveLines.txt')),expected_output);
+    });
+  });
+  describe('node head -n0 fiveLines.txt',function(){
+    it('should give illegal count error for zero with -n',function(){
+      let expected_output = "head: illegal line count -- 0";
+      deepEqual(head(fs,argv('-n0 fiveLines.txt')),expected_output);
+    });
+  });
+  describe('node head -n -1 fiveLines.txt',function(){
+    it('should give illegal count error for negative count',function(){
+      let expected_output = "head: illegal line count -- -1";
+      deepEqual(head(fs,argv('-n -1 fiveLines.txt')),expected_output);
+    });
+  });
+  describe('node head -n a fiveLines.txt',function(){
+    it('should give illegal count error for alphabet',function(){
+      let expected_output = "head: illegal line count -- a";
+      deepEqual(head(fs,argv('-n a fiveLines.txt')),expected_output);
+    });
+  });
 });
 
 
@@ -131,7 +155,7 @@ describe('createArgsObject',function(){
 
 describe('parseArgsWithOption',function(){
   it('should return the object of parameters when -n or -c are specified separately',function(){
-    deepEqual(parseArgsWithOption(["-n","-3","testfile"]),{"option":"lines","count":3,"filenames":["testfile"]});
+    deepEqual(parseArgsWithOption(["-n","3","testfile"]),{"option":"lines","count":3,"filenames":["testfile"]});
   });
   it('should return the object of parameters with -n as option when only count is specified',function(){
     deepEqual(parseArgsWithOption(["-3","testfile"]),{"option":"lines","count":3,"filenames":["testfile"]});
