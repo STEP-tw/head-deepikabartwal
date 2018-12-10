@@ -30,7 +30,7 @@ const head = function(fs,args){
     return heading + "\n" + getLines(path);
   }
   if(filenames.length>1){
-    return filenames.map(getLineWithHeadings).join("\n");
+    return filenames.map(getLineWithHeadings).join("\n\n");
   }
   return filenames.map(getLines).join("\n");
 }
