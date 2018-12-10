@@ -16,23 +16,29 @@ const parseArgs = function(args){
   return createArgsObject("-n","10",args);
 }
 
+const delimiter = {
+  'lines':'\n',
+  'characters':''
+}
+
 const head = function(fs,args){
   let {option,count,filenames} = parseArgs(args);
-  const getLines = function(path){
+  let delim = delimiter[option];
+  const getContent = function(path){
     if(!fs.existsSync(path)){
       return generateErrorText("nf"+path);
     }
-    let lines = fs.readFileSync(path,'utf-8').split("\n");
-    return take(lines,count).join("\n");
+    let lines = fs.readFileSync(path,'utf-8').split(delim);
+    return take(lines,count).join(delim);
   }
-  const getLineWithHeadings = function(path){
+  const getContentWithHeadings = function(path){
     let heading = "==> "+path+" <==";
-    return heading + "\n" + getLines(path);
+    return heading + "\n" + getContent(path);node
   }
   if(filenames.length>1){
-    return filenames.map(getLineWithHeadings).join("\n\n");
+      return filenames.map(getContentWithHeadings).join('\n');
   }
-  return filenames.map(getLines).join("\n");
+  return filenames.map(getContent).join(delim);
 }
 
 const createArgsObject = function(type,count,filenames){
