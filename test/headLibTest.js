@@ -3,9 +3,7 @@ const {
   parseArgsWithOption,
   parseArgs,
   generateErrorText,
-  fetchNumber,
   head,
-  fetchNumberOfLines,
 } = require("../src/headLib.js");
 const take = require("../src/utilLib.js").take;
 
@@ -58,26 +56,6 @@ describe('take', function(){
   });
 });
 
-describe('fetchNumberOfLines', function(){
-  it('should give the number only when number is given with option specified', function(){
-    deepEqual(fetchNumberOfLines("-n5"),5);
-  });
-  it('should return number when given with "-" only', function(){
-    deepEqual(fetchNumberOfLines("-5"),5);
-  });
-  it('should return zero when no number is provided with parameter', function(){
-    deepEqual(fetchNumberOfLines("-n"),0);
-  });
-});
-
-describe('fetchNumber', function(){
-  it('should give number in string form when argument contains number', function(){
-    deepEqual(fetchNumber("","5"),'5');
-  });
-  it('should give empty string when a non number value is provided', function(){
-    deepEqual(fetchNumber("","n"),'');
-  });
-});
 
 describe('generateErrorText', function(){
   it('should return error for -n', function(){
