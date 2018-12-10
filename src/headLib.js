@@ -21,9 +21,16 @@ const delimiter = {
   'characters':''
 }
 
+const validateCount = function(countArg){
+  return countArg > 0 && !isNaN(countArg) 
+}
+
 const head = function(fs,args){
   let {option,count,filenames} = parseArgs(args);
   let delim = delimiter[option];
+  if(!validateCount(count)){
+    return "head: illegal line count -- "+count;
+  }
   const getContent = function(path){
     if(!fs.existsSync(path)){
       return generateErrorText("nf"+path);
@@ -55,10 +62,10 @@ const validateOption = function(optionParaCandidate){
 
 const parseArgsWithOption = function(args){
   if(validateOption(args[0])){
-    return createArgsObject(args[0],Math.abs(args[1]),args.slice(2));
+    return createArgsObject(args[0],+args[1],args.slice(2));
   }
   if(!isNaN(args[0].slice(1))){
-    return createArgsObject("-n",+args[0].slice(1),args.slice(1));
+      return createArgsObject("-n",Math.abs(args[0]),args.slice(1));
   }
   return createArgsObject(args[0].slice(0,2),+args[0].slice(2),args.slice(1));
 }
@@ -70,3 +77,4 @@ module.exports = {
   parseArgs,
   head
 }
+
