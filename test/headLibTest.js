@@ -104,7 +104,19 @@ describe('head', function(){
   describe('node head fiveLines.txt fifteenLines.txt', function(){
     it('should give 5,10 lines of the files with title', function(){
       let expected_output = ['==> fiveLines.txt <==',generateLines(5),'==> fifteenLines.txt <==',generateLines(10)].join('\n');
-      equal(head(fs,argv('fiveLines.txt fifteenLines.txt')),expected_output);
+      deepEqual(head(fs,argv('fiveLines.txt fifteenLines.txt')),expected_output);
+    });
+  });
+  describe('node head -n5 fiveLines.txt fifteenLines.txt',function(){
+    it('should give 5 lines of both files with title',function(){
+      let expected_output = ['==> fiveLines.txt <==',generateLines(5),'==> fifteenLines.txt <==',generateLines(5)].join('\n');
+      deepEqual(head(fs,argv('-n5 fiveLines.txt fifteenLines.txt')),expected_output);
+    });
+  });
+  describe('node head -n 5 fiveLines.txt fifteenLines.txt',function(){
+    it('should give 5 lines of both files with title',function(){
+      let expected_output = ['==> fiveLines.txt <==',generateLines(5),'==> fifteenLines.txt <==',generateLines(5)].join('\n');
+      deepEqual(head(fs,argv('-n 5 fiveLines.txt fifteenLines.txt')),expected_output);
     });
   });
 });
