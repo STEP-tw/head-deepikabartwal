@@ -1,19 +1,6 @@
 const take = require("./utilLib.js").take;
 
 
-const fetchNumber = function(string,character){
-  if(!isNaN(character)){
-    string = string+character;
-  }
-  return string;
-}
-
-const fetchNumberOfLines = function(parameter){
-  let list = [];
-  let integerList = parameter.split("").reduce(fetchNumber,"");
-  let numberOfLines = +integerList;
-  return numberOfLines;
-}
 const generateErrorText = function(wrongInput){
   let errorTexts = {};
   errorTexts["-n"] = "head: illegal line count --" +wrongInput.slice(2);
@@ -24,7 +11,7 @@ const generateErrorText = function(wrongInput){
 
 const parseArgs = function(args){
   if(args[0].startsWith("-")){
-    return parseParasWithOption(args);
+    return parseArgsWithOption(args);
   }
   return createArgsObject("-n","10",args);
 }
@@ -60,22 +47,20 @@ const validateOption = function(optionParaCandidate){
   return optionParaCandidate == "-n" || optionParaCandidate == "-c;"
 }
 
-const parseParasWithOption = function(parameters){
-  if(validateOption(parameters[0])){
-    return createArgsObject(parameters[0],+parameters[1].slice(1),parameters.slice(2));
+const parseArgsWithOption = function(args){
+  if(validateOption(args[0])){
+    return createArgsObject(args[0],Math.abs(args[1]),args.slice(2));
   }
-  if(!isNaN(parameters[0].slice(1))){
-    return createArgsObject("-n",+parameters[0].slice(1),parameters.slice(1));
+  if(!isNaN(args[0].slice(1))){
+    return createArgsObject("-n",+args[0].slice(1),args.slice(1));
   }
-  return createArgsObject(parameters[0].slice(0,2),+parameters[0].slice(2),parameters.slice(1));
+  return createArgsObject(args[0].slice(0,2),+args[0].slice(2),args.slice(1));
 }
 
 module.exports = {
   createArgsObject,
-  fetchNumberOfLines,
-  fetchNumber,
   generateErrorText,
-  parseParasWithOption,
+  parseArgsWithOption,
   parseArgs,
   head
 }
