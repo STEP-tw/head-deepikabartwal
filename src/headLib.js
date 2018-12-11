@@ -76,7 +76,7 @@ const parseArgsWithOption = function(args){
 const tail = function(fs,args){
   let {option,count,filenames} = parseArgs(args);
   let delim = separator[option];
-  if(isNaN(count)){
+  if(invalidCount(count)){
     return "head: illegal "+option+" count -- "+count;
   }
   const getContent = function(path){
@@ -84,11 +84,7 @@ const tail = function(fs,args){
       return generateErrorText("nf"+path);
     }
     let lines = fs.readFileSync(path,'utf-8').split(delim).reverse();
-<<<<<<< HEAD
     return take(lines,Math.abs(count)).reverse().join(delim);
-=======
-    return take(lines,+count+1).reverse().join(delim);
->>>>>>> parent of d56c666... modified tail
   }
   const getContentWithHeadings = function(path){
     let heading = "==> "+path+" <==";
