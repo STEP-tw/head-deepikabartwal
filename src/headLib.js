@@ -60,7 +60,7 @@ const createArgsObject = function(type,count,filenames){
 }
 
 const validateOption = function(optionParaCandidate){
-  return optionParaCandidate == "-n" || optionParaCandidate == "-c;"
+  return optionParaCandidate == "-n" || optionParaCandidate == "-c";
 }
 
 const parseArgsWithOption = function(args){
@@ -84,7 +84,7 @@ const tail = function(fs,args){
       return generateErrorText("nf"+path);
     }
     let lines = fs.readFileSync(path,'utf-8').split(delim).reverse();
-        return take(lines,+count).reverse().join(delim);
+        return take(lines,Math.abs(count)).reverse().join(delim);
   }
   const getContentWithHeadings = function(path){
     let heading = "==> "+path+" <==";
