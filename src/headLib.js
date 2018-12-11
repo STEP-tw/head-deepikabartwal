@@ -73,11 +73,39 @@ const parseArgsWithOption = function(args){
   return createArgsObject(args[0].slice(0,2),args[0].slice(2),args.slice(1));
 }
 
+const tail = function(fs,args){
+  let {option,count,filenames} = parseArgs(args);
+  let delim = separator[option];
+  if(invalidCount(count)){
+    return "head: illegal "+option+" count -- "+count;
+  }
+  const getContent = function(path){
+    if(!fs.existsSync(path)){
+      return generateErrorText("nf"+path);
+    }
+    let lines = fs.readFileSync(path,'utf-8').split(delim).reverse();
+    return take(lines,+count+1).reverse().join(delim);
+  }
+  const getContentWithHeadings = function(path){
+    let heading = "==> "+path+" <==";
+    if(!fs.existsSync(path)){
+      return generateErrorText("nf"+path);
+    }
+    return heading + "\n" + getContent(path);node
+  }
+  if(filenames.length>1){
+      return filenames.map(getContentWithHeadings).join('\n');
+  }
+  return filenames.map(getContent).reverse().join(delim);
+}
+
+
 module.exports = {
   createArgsObject,
   generateErrorText,
   parseArgsWithOption,
   parseArgs,
-  head
+  head,
+  tail
 }
 
