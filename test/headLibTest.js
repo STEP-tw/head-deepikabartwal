@@ -163,6 +163,12 @@ describe('parseArgsWithOption',function(){
   it('should return the object of parameters when -n or -c are specified with count',function(){
     deepEqual(parseArgsWithOption(["-n7","testfile"]),{"option":"line","count":7,"filenames":["testfile"]});
   });
+  it('should return the object of parameters when -c is given',function(){
+    deepEqual(parseArgsWithOption(["-c3","testfile"]),{'option':'byte','count':3,'filenames':['testfile']});
+  });
+  it.skip('should return the object of parameter when -c and count are separate',function(){
+    deepEqual(parseArgsWithOption(['-c','3','testfile']),{'option':'byte','count':3,'filenames':['testfile']});
+  });
 });
 
 describe('parseArgs',function(){
