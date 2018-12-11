@@ -84,7 +84,7 @@ const tail = function(fs,args){
       return generateErrorText("nf"+path);
     }
     let lines = fs.readFileSync(path,'utf-8').split(delim).reverse();
-    return take(lines,+count+1).reverse().join(delim);
+    return take(lines,+count).reverse().join(delim);
   }
   const getContentWithHeadings = function(path){
     let heading = "==> "+path+" <==";
