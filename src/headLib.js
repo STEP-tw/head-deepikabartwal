@@ -77,11 +77,11 @@ const tail = function(fs,args){
   let {option,count,filenames} = parseArgs(args);
   let delim = separator[option];
   if(isNaN(count)){
-    return "head: illegal "+option+" count -- "+count;
+    return "tail: illegal "+option+" count -- "+count;
   }
   const getContent = function(path){
     if(!fs.existsSync(path)){
-      return generateErrorText("nf"+path);
+      return "tail: "+path+": No such file or directory";
     }
     let lines = fs.readFileSync(path,'utf-8').split(delim).reverse();
         return take(lines,Math.abs(count)).reverse().join(delim);
@@ -89,7 +89,7 @@ const tail = function(fs,args){
   const getContentWithHeadings = function(path){
     let heading = "==> "+path+" <==";
     if(!fs.existsSync(path)){
-      return generateErrorText("nf"+path);
+      return "tail: "+path+": No such file or directory";
     }
     return heading + "\n" + getContent(path);node
   }
