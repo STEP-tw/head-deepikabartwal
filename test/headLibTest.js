@@ -303,4 +303,16 @@ describe('tail',function(){
       equal(tail(fs,argv('-n0 fiveLines.txt')),'');
     });
   });
+  describe('node tail -na fiveLines.txt',function(){
+    it('should return illegal offset error',function(){
+      let expected_output = 'tail: illegal offset -- a'
+      equal(tail(fs,argv('-na fiveLines.txt')),expected_output);
+    });
+  });
+  describe('node tail -n -a fiveLines.txt',function(){
+    it('should return illegal offset error',function(){
+      let expected_output = 'tail: illegal offset -- -a'
+      equal(tail(fs,argv('-n -a fiveLines.txt')),expected_output);
+    });
+  });
 });
