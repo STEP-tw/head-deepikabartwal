@@ -143,6 +143,12 @@ describe('head', function(){
       deepEqual(head(fs,argv('-n a fiveLines.txt')),expected_output);
     });
   });
+  describe('node head -na fiveLines.txt',function(){
+    it('should give illegal line count error',function(){
+      let expected_output = "head: illegal line count -- a";
+      deepEqual(head(fs,argv('-na fiveLines.txt')),expected_output);
+    })
+  })
   describe('node head -c 1 fiveLines.txt',function(){
     it('should give singleCharacter',function(){
       let expected_output = '1';
@@ -161,6 +167,12 @@ describe('head', function(){
       equal(head(fs,argv('-c0 fiveLines.txt')),expected_output);
     });
   });
+  describe('node head -c 0 fiveLines.txt',function(){
+    it('should give illegal byte error',function(){
+      let expected_output = 'head: illegal byte count -- 0'
+      equal(head(fs,argv('-c 0 fiveLines.txt')),expected_output);
+    });
+  });
   describe('node head -ca fiveLines.txt',function(){
     it('should give illegal count error',function(){
       let expected_output = 'head: illegal byte count -- a';
@@ -170,7 +182,7 @@ describe('head', function(){
   describe('node head -c a fiveLines.txt',function(){
     it('should give illegal count error',function(){
       let expected_output = 'head: illegal byte count -- a';
-      equal(head(fs,argv('-ca fiveLines.txt')),expected_output);
+        equal(head(fs,argv('-c a fiveLines.txt')),expected_output);
     });
   });
 });
