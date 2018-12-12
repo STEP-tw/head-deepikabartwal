@@ -370,4 +370,10 @@ describe('tail',function(){
       equal(tail(fs,argv('missing fiveLines.txt')),expected_output);
     });
   });
+  describe('node tail fiveLines.txt missing',function(){
+    it('should return error for last one and return 5 lines of first one',function(){
+      let expected_output = ['==> fiveLines.txt <==',generateLines(5),'tail: missing: No such file or directory'].join('\n');
+      equal(tail(fs,argv('fiveLines.txt missing')),expected_output);
+    }) ;
+  });
 });
