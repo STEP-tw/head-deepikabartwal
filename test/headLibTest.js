@@ -4,6 +4,7 @@ const {
   parseArgs,
   generateErrorText,
   head,
+  tail
 } = require("../src/headLib.js");
 const take = require("../src/utilLib.js").take;
 
@@ -249,4 +250,17 @@ describe('parseArgs',function(){
     });
   });
 });
-
+describe('tail',function(){
+  describe('node tail fifteenLines.txt',function(){
+    it('should return last 10 lines of file',function(){
+      let expected_output = generateLines(15).split('\n').slice(5).join('\n');
+      deepEqual(tail(fs,argv('fifteenLines.txt')),expected_output);
+    });
+  });
+  describe('node tail fiveLines.txt',function(){
+    it('should return 5 lines',function(){
+      let expected_output = generateLines(5);
+      equal(tail(fs,argv('fiveLines.txt')),expected_output);
+    });
+  });
+});
