@@ -376,4 +376,16 @@ describe('tail',function(){
       equal(tail(fs,argv('fiveLines.txt missing')),expected_output);
     }) ;
   });
+  describe('node tail -n1 fiveLines.txt fiveLines.txt',function(){
+    it('should return 5 for each',function(){
+      let expected_output = ['==> fiveLines.txt <==','5','==> fiveLines.txt <==','5'].join('\n');
+      equal(tail(fs,argv('-n1 fiveLines.txt fiveLines.txt')),expected_output);
+    });
+  });
+  describe('node tail -n 1 fiveLines.txt fiveLines.txt',function(){
+    it('should return 5 for each',function(){
+      let expected_output = ['==> fiveLines.txt <==','5','==> fiveLines.txt <==','5'].join('\n');
+      equal(tail(fs,argv('-n 1 fiveLines.txt fiveLines.txt')),expected_output); 
+    })
+  })
 });
