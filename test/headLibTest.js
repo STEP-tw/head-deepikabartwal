@@ -341,4 +341,10 @@ describe('tail',function(){
       equal(tail(fs,argv('-ca fiveLines.txt')),expected_output);
     });
   });
+  describe('node tail -c a fiveLines.txt',function(){
+    it('should return illegal offset error',function(){
+      let expected_output = 'tail: illegal offset -- a';
+      equal(tail(fs,argv('-c a fiveLines.txt')),expected_output);
+    });
+  });
 });
