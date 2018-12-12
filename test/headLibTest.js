@@ -347,4 +347,21 @@ describe('tail',function(){
       equal(tail(fs,argv('-c a fiveLines.txt')),expected_output);
     });
   });
+  describe('node tail -c -1 fiveLines.txt',function(){
+    it('should return 5',function(){
+      equal(tail(fs,argv('-c -1 fiveLines.txt')),'5');
+    });
+  });
+  describe('node tail fiveLines.txt fiveLines.txt',function(){
+    it('should return 5 lines of each file',function(){
+      let expected_output = ['==> fiveLines.txt <==',generateLines(5),'==> fiveLines.txt <==',generateLines(5)].join('\n');
+      equal(tail(fs,argv('fiveLines.txt fiveLines.txt')),expected_output);
+    });
+  });
+  describe('node tail fifteenLines.txt fiveLines.txt',function(){
+    it('should return 10,5 lines',function(){
+      let expected_output = ['==> fifteenLines.txt <==',generateLines(15).slice(10),'==> fiveLines.txt <==',generateLines(5)].join('\n');
+      equal(tail(fs,argv('fifteenLines.txt fiveLines.txt')),expected_output);
+    });
+  });
 });
