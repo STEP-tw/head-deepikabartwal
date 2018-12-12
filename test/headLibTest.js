@@ -263,4 +263,28 @@ describe('tail',function(){
       equal(tail(fs,argv('fiveLines.txt')),expected_output);
     });
   });
+  describe('node tail tenLines.txt',function(){
+    it('should return 10 lines',function(){
+      let expected_output = generateLines(10);
+      equal(tail(fs,argv('tenLines.txt')),expected_output);
+    });
+  });
+  describe('node tail -n3 fiveLines.txt',function(){
+    it('should return 3 lines',function(){
+      let expected_output = generateLines(5).slice(4);
+      equal(tail(fs,argv('-n3 fiveLines.txt')),expected_output);
+    });
+  });
+  describe('node tail -n 3 fiveLines.txt',function(){
+    it('should return 3 lines',function(){
+      let expected_output = generateLines(5).slice(4);
+      equal(tail(fs,argv('-n 3 fiveLines.txt')),expected_output);
+    });
+  });
+  describe('node tail -n -3 fiveLines.txt',function(){
+    it('should return 3 lines',function(){
+      let expected_output = generateLines(5).slice(4);
+      equal(tail(fs,argv('-n -3 fiveLines.txt')),expected_output);
+    })
+  })
 });
