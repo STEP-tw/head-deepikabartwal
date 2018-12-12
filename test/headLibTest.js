@@ -161,6 +161,18 @@ describe('head', function(){
       equal(head(fs,argv('-c0 fiveLines.txt')),expected_output);
     });
   });
+  describe('node head -ca fiveLines.txt',function(){
+    it('should give illegal count error',function(){
+      let expected_output = 'head: illegal byte count -- a';
+      equal(head(fs,argv('-ca fiveLines.txt')),expected_output);
+    });
+  });
+  describe('node head -c a fiveLines.txt',function(){
+    it('should give illegal count error',function(){
+      let expected_output = 'head: illegal byte count -- a';
+      equal(head(fs,argv('-ca fiveLines.txt')),expected_output);
+    });
+  });
 });
 
 
