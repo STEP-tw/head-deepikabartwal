@@ -77,7 +77,7 @@ const tail = function(fs,args){
   let {option,count,filenames} = parseArgs(args);
   let delim = separator[option];
   if(isNaN(count)){
-    return "tail: illegal "+option+" count -- "+count;
+    return "tail: illegal offset -- "+count;
   }
   const getContent = function(path){
     if(!fs.existsSync(path)){
