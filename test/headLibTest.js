@@ -143,6 +143,24 @@ describe('head', function(){
       deepEqual(head(fs,argv('-n a fiveLines.txt')),expected_output);
     });
   });
+  describe('node head -c 1 fiveLines.txt',function(){
+    it('should give singleCharacter',function(){
+      let expected_output = '1';
+      equal(head(fs,argv('-c 1 fiveLines.txt')),expected_output);
+    });
+  });
+  describe('node head -c1 fiveLines.txt',function(){
+    it('should give 1 as result',function(){
+      let expected_output = '1';
+      equal(head(fs,argv('-c1 fiveLines.txt')),expected_output);
+    });
+  });
+  describe('node head -c0 fiveLines.txt',function(){
+    it('should give illegal count error',function(){
+      let expected_output = 'head: illegal byte count -- 0'
+      equal(head(fs,argv('-c0 fiveLines.txt')),expected_output);
+    });
+  });
 });
 
 
@@ -166,7 +184,7 @@ describe('parseArgsWithOption',function(){
   it('should return the object of parameters when -c is given',function(){
     deepEqual(parseArgsWithOption(["-c3","testfile"]),{'option':'byte','count':3,'filenames':['testfile']});
   });
-  it.skip('should return the object of parameter when -c and count are separate',function(){
+  it('should return the object of parameter when -c and count are separate',function(){
     deepEqual(parseArgsWithOption(['-c','3','testfile']),{'option':'byte','count':3,'filenames':['testfile']});
   });
 });
