@@ -43,7 +43,7 @@ const head = function(fs,args){
     if(!fs.existsSync(path)){
       return generateErrorText("nf"+path);
     }
-    return heading + "\n" + getContent(path);node
+    return heading + "\n" + getContent(path);
   }
   if(filenames.length>1){
       return filenames.map(getContentWithHeadings).join('\n');
@@ -91,7 +91,7 @@ const tail = function(fs,args){
     if(!fs.existsSync(path)){
       return "tail: "+path+": No such file or directory";
     }
-    return heading + "\n" + getContent(path);node
+    return heading + "\n" + getContent(path);
   }
   if(filenames.length>1){
       return filenames.map(getContentWithHeadings).join('\n');
