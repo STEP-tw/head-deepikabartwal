@@ -398,6 +398,12 @@ describe('tail',function(){
     it('should return nothing for both files',function(){
       let expected_output = ['==> fiveLines.txt <==','','==> fiveLines.txt <==',''].join('\n');
       equal(tail(fs,argv('-n0 fiveLines.txt fiveLines.txt')),expected_output);
-    })
-  })
+    });
+  });
+  describe('node tail -n -1 fiveLines.txt fiveLines.txt',function(){
+    it('should return last line of both files',function(){
+      let expected_output = ['==> fiveLines.txt <==','5','==> fiveLines.txt <==','5'].join('\n');
+      equal(tail(fs,argv('-n -1 fiveLines.txt fiveLines.txt')),expected_output);
+    });
+  });
 });
