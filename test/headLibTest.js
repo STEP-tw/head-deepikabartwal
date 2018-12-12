@@ -298,4 +298,9 @@ describe('tail',function(){
       equal(tail(fs,argv('-n 0 fiveLines.txt')),'');
     });
   });
+  describe('node tail -n0 fiveLines.txt',function(){
+    it('should return empty string',function(){
+      equal(tail(fs,argv('-n0 fiveLines.txt')),'');
+    });
+  });
 });
