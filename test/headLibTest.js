@@ -89,7 +89,13 @@ describe('head', function(){
       equal(head(fs,argv('-5 tenLines.txt')),fiveLines);
     });
   });
-  describe("node head -n5 tenLines.txt",()=>{
+  describe('node head -0 tenLines.txt',function(){
+    it('should give illegal line count error',function(){
+      let expected_output = 'head: illegal line count -- 0';
+      equal(head(fs,argv('-0 tenLines.txt')),expected_output);
+    });
+  });
+  describe('node head -n5 tenLines.txt',()=>{
     it('should return 5 lines', function(){
       let fiveLines = generateLines(5);
       deepEqual(head(fs,argv('-n5 tenLines.txt')),fiveLines);
@@ -117,6 +123,18 @@ describe('head', function(){
     it('should give 5 lines of both files with title',function(){
       let expected_output = ['==> fiveLines.txt <==',generateLines(5),'==> fifteenLines.txt <==',generateLines(5)].join('\n');
       deepEqual(head(fs,argv('-n 5 fiveLines.txt fifteenLines.txt')),expected_output);
+    });
+  });
+  describe('node head -n 5 fiveLines.txt abc',function(){
+    it('should give 5 lines of first file and error message for second',function(){
+      let expected_output = ['==> fiveLines.txt <==',generateLines(5),'head: abx: No such file or directory'].join('\n');
+      deepEqual(head(fs,argv('-n 5 fiveLines.txt abx')),expected_output);
+    });
+  });
+  describe('node head -n 5 abc fiveLines.txt',function(){
+    it('should give error of first file and 5 lines for second one',function(){
+      let expected_output = ['head: abc: No such file or directory','==> fiveLines.txt <==',generateLines(5)].join('\n');
+      equal(head(fs,argv('-n 5 abc fiveLines.txt')),expected_output);
     });
   });
   describe('node head -n 0 fiveLines.txt',function(){
@@ -183,6 +201,12 @@ describe('head', function(){
     it('should give illegal count error',function(){
       let expected_output = 'head: illegal byte count -- a';
         equal(head(fs,argv('-c a fiveLines.txt')),expected_output);
+    });
+  });
+  describe('node head -c -2 fiveLines.txt',function(){
+    it('should give illegal count error',function(){
+      let expected_output = 'head: illegal byte count -- -2';
+      equal(head(fs,argv('-c -2 fiveLines.txt')),expected_output);
     });
   });
 });
