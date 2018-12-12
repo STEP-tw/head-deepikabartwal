@@ -386,6 +386,18 @@ describe('tail',function(){
     it('should return 5 for each',function(){
       let expected_output = ['==> fiveLines.txt <==','5','==> fiveLines.txt <==','5'].join('\n');
       equal(tail(fs,argv('-n 1 fiveLines.txt fiveLines.txt')),expected_output); 
+    });
+  });
+  describe('node tail -n 0 fiveLines.txt fiveLines.txt',function(){
+    it('should return nothing for both files',function(){
+      let expected_output = ['==> fiveLines.txt <==','','==> fiveLines.txt <==',''].join('\n');
+      equal(tail(fs,argv('-n 0 fiveLines.txt fiveLines.txt')),expected_output);
+    });
+  });
+  describe('node tail -n0 fiveLines.txt fiveLines.txt',function(){
+    it('should return nothing for both files',function(){
+      let expected_output = ['==> fiveLines.txt <==','','==> fiveLines.txt <==',''].join('\n');
+      equal(tail(fs,argv('-n0 fiveLines.txt fiveLines.txt')),expected_output);
     })
   })
 });
