@@ -320,4 +320,25 @@ describe('tail',function(){
       equal(tail(fs,argv('-c1 fiveLines.txt')),'5');
     });
   });
+  describe('node tail -c 1 fiveLines.txt',function(){
+    it('should return 5',function(){
+      equal(tail(fs,argv('-c 1 fiveLines.txt')),'5');
+    });
+  });
+  describe('node tail -c 0 fiveLines.txt',function(){
+    it('should return nothing',function(){
+      equal(tail(fs,argv('-c 0 fiveLines.txt')),'');
+    });
+  });
+  describe('node tail -c0 fiveLines.txt',function(){
+    it('should return nothing',function(){
+      equal(tail(fs,argv('-c0 fiveLines.txt')),'');
+    });
+  });
+  describe('node tail -ca fiveLines.txt',function(){
+    it('should return illegal offset error',function(){
+      let expected_output = 'tail: illegal offset -- a';
+      equal(tail(fs,argv('-ca fiveLines.txt')),expected_output);
+    });
+  });
 });
