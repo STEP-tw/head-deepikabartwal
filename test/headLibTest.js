@@ -315,4 +315,9 @@ describe('tail',function(){
       equal(tail(fs,argv('-n -a fiveLines.txt')),expected_output);
     });
   });
+  describe('node tail -c1 fiveLines.txt',function(){
+    it('should return 5',function(){
+      equal(tail(fs,argv('-c1 fiveLines.txt')),'5');
+    });
+  });
 });
