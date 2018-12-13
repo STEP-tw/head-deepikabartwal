@@ -418,4 +418,16 @@ describe('tail',function(){
       equal(tail(fs,argv('-n a fiveLines.txt fiveLines.txt')),expected_output);
     });
   });
+  describe('node tail -c1 fiveLines.txt fiveLines.txt',function(){
+    it('should return 5 in both file with title',function(){
+      let expected_output = ['==> fiveLines.txt <==','5','==> fiveLines.txt <==','5'].join('\n');
+      equal(tail(fs,argv('-c1 fiveLines.txt fiveLines.txt')),expected_output);
+    });
+  });
+  describe('node tail -c 1 fiveLines.txt fiveLines.txt',function(){
+    it('should return 5 in both file with title',function(){
+      let expected_output = ['==> fiveLines.txt <==','5','==> fiveLines.txt <==','5'].join('\n');
+      equal(tail(fs,argv('-c 1 fiveLines.txt fiveLines.txt')),expected_output);
+    });
+  });
 });
