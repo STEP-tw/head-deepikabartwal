@@ -376,6 +376,12 @@ describe('tail',function(){
       equal(tail(fs,argv('fiveLines.txt missing')),expected_output);
     }) ;
   });
+  describe('node tail -1 fiveLines.txt missing',function(){
+    it('should return last line for first and error for missing file',function(){
+      let expected_output = ['==> fiveLines.txt <==','5','tail: missing: No such file or directory'].join('\n');
+      equal(tail(fs,argv('-1 fiveLines.txt missing')),expected_output);
+    });
+  });
   describe('node tail -0 fiveLines.txt fiveLines.txt',function(){
     it('should return nothing for both file only heading',function(){
       let expected_output = ['==> fiveLines.txt <==','','==> fiveLines.txt <==',''].join('\n');
