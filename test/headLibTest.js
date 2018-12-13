@@ -430,4 +430,10 @@ describe('tail',function(){
       equal(tail(fs,argv('-c 1 fiveLines.txt fiveLines.txt')),expected_output);
     });
   });
+  describe('node tail -c0 fiveLines.txt fiveLines.txt',function(){
+    it('should return nothing for both files with title',function(){
+      let expected_output = ['==> fiveLines.txt <==','','==> fiveLines.txt <==',''].join('\n');
+      equal(tail(fs,argv('-c0 fiveLines.txt fiveLines.txt')),expected_output);
+    });
+  });
 });
