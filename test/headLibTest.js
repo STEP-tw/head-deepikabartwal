@@ -269,6 +269,12 @@ describe('tail',function(){
       equal(tail(fs,argv('tenLines.txt')),expected_output);
     });
   });
+  describe('node tail -5 tenLines.txt',function(){
+    it('should return 10 lines',function(){
+      let expected_output = generateLines(10).slice(10);
+      equal(tail(fs,argv('-5 tenLines.txt')),expected_output);
+    });
+  });
   describe('node tail missing',function(){
     it('should return missing file error',function(){
       let expected_output = 'tail: missing: No such file or directory';
@@ -464,6 +470,12 @@ describe('tail',function(){
     it('should return 5 in both file with title',function(){
       let expected_output = ['==> fiveLines.txt <==','5','==> fiveLines.txt <==','5'].join('\n');
       equal(tail(fs,argv('-c 1 fiveLines.txt fiveLines.txt')),expected_output);
+    });
+  });
+  describe('node tail -c -1 fiveLines.txt fiveLines.txt',function(){
+    it('should return 5 in both file with title',function(){
+      let expected_output = ['==> fiveLines.txt <==','5','==> fiveLines.txt <==','5'].join('\n');
+      equal(tail(fs,argv('-c -1 fiveLines.txt fiveLines.txt')),expected_output);
     });
   });
   describe('node tail -c0 fiveLines.txt fiveLines.txt',function(){
