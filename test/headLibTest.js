@@ -108,6 +108,12 @@ describe('head', function(){
       deepEqual(head(fs,argv('missingFile.txt')),errorMessage);
     });
   });
+  describe('node head 3 fiveLines.txt',function(){
+    it('should return missing file error for 3 and return 5 lines of second one',function(){
+      let expected_output = ['head: 3: No such file or directory','==> fiveLines.txt <==',generateLines(5)].join('\n');
+      deepEqual(head(fs,argv('3 fiveLines.txt')),expected_output);
+    });
+  });
   describe('node head fiveLines.txt fifteenLines.txt', function(){
     it('should give 5,10 lines of the files with title', function(){
       let expected_output = ['==> fiveLines.txt <==',generateLines(5),'==> fifteenLines.txt <==',generateLines(10)].join('\n');
