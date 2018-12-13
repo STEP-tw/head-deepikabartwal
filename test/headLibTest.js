@@ -448,4 +448,16 @@ describe('tail',function(){
       equal(tail(fs,argv('-c -1 fiveLines.txt fiveLines.txt')),expected_output);
     });
   });
+  describe('node tail -ca fiveLines.txt fiveLines.txt',function(){
+    it('should return error for illegal offset',function(){
+      let expected_output = 'tail: illegal offset -- a';
+      equal(tail(fs,argv('-na fiveLines.txt fiveLines.txt')),expected_output);
+    });
+  });
+  describe('node tail -c a fiveLines.txt fiveLines.txt',function(){
+    it('should return error for illegal offset',function(){
+      let expected_output = 'tail: illegal offset -- a';
+      equal(tail(fs,argv('-n a fiveLines.txt fiveLines.txt')),expected_output);
+    });
+  });
 });
