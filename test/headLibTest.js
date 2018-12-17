@@ -4,8 +4,8 @@ const {
   parseArgs,
   head,
   tail
-} = require("../src/headLib.js");
-const take = require("../src/utilLib.js").take;
+} = require("../src/headAndTail.js");
+const take = require("../src/util.js").take;
 
 const {deepEqual,equal} = require("assert");
 
@@ -77,7 +77,6 @@ describe('head', function(){
       equal(head(fs,split('fiveLines.txt')),fiveLines);
     });
   });
-
   describe("node head -5 tenLines.txt",()=>{
     it('should give 5 lines', function(){
       let fiveLines = generateLines(5);
