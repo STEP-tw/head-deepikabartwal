@@ -5,6 +5,7 @@ const take = function(list, numberOfElements) {
 const last = function(list, count) {
   return list.slice(-count);
 };
+
 module.exports = {
   take,
   last
