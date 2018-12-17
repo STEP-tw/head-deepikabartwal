@@ -114,6 +114,7 @@ describe("head", function() {
 
   describe("node head fiveLines.txt fifteenLines.txt", function() {
     it("should give 5,10 lines of the files with title", function() {
+      let actual = head(split("fiveLines.txt fifteenLines.txt"), fs);
       let expected_output = [
         "==> fiveLines.txt <==",
         generateLines(5),
@@ -121,25 +122,20 @@ describe("head", function() {
         generateLines(10)
       ].join("\n");
 
-      assert.equal(
-        head(split("fiveLines.txt fifteenLines.txt"), fs),
-        expected_output
-      );
+      assert.equal(actual, expected_output);
     });
   });
 
   describe("node head -n5 fiveLines.txt fifteenLines.txt", function() {
     it("should give 5 lines of both files with title", function() {
+      let actual = head(split("-n5 fiveLines.txt fifteenLines.txt"), fs);
       let expected_output = [
         "==> fiveLines.txt <==",
         generateLines(5),
         "==> fifteenLines.txt <==",
         generateLines(5)
       ].join("\n");
-      assert.equal(
-        head(split("-n5 fiveLines.txt fifteenLines.txt"), fs),
-        expected_output
-      );
+      assert.equal(actual, expected_output);
     });
   });
 
@@ -158,12 +154,13 @@ describe("head", function() {
 
   describe("node head -n 5 fiveLines.txt abc", function() {
     it("should give 5 lines of first file and error message for second", function() {
+      let actual = head(split("-n 5 fiveLines.txt abx"), fs);
       let expected_output = [
         "==> fiveLines.txt <==",
         generateLines(5),
         "head: abx: No such file or directory"
       ].join("\n");
-      assert.equal(head(split("-n 5 fiveLines.txt abx"), fs), expected_output);
+      assert.equal(actual, expected_output);
     });
   });
 
