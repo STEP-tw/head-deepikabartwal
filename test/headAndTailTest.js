@@ -86,26 +86,29 @@ describe("head", function() {
 
   describe("node head -n5 tenLines.txt", () => {
     it("should return 5 lines given file", function() {
+      let actual = head(split("-n5 tenLines.txt"), fs);
       let fiveLines = generateLines(5);
-      assert.equal(head(split("-n5 tenLines.txt"), fs), fiveLines);
+      assert.equal(actual, fiveLines);
     });
   });
 
   describe("node head missingFile.txt", () => {
     it("should return missing error when missing file is given", function() {
+      let actual = head(split("missingFile.txt"), fs);
       let errorMessage = "head: missingFile.txt: No such file or directory";
-      assert.equal(head(split("missingFile.txt"), fs), errorMessage);
+      assert.equal(actual, errorMessage);
     });
   });
 
   describe("node head 3 fiveLines.txt", function() {
     it("should return missing file error for 3 and return 5 lines of second one", function() {
+      let actual = head(split("3 fiveLines.txt"), fs);
       let expected_output = [
         "head: 3: No such file or directory",
         "==> fiveLines.txt <==",
         generateLines(5)
       ].join("\n");
-      assert.equal(head(split("3 fiveLines.txt"), fs), expected_output);
+      assert.equal(actual, expected_output);
     });
   });
 
