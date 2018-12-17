@@ -61,8 +61,9 @@ describe("head", function() {
 
   describe("node head fiveLines.txt", () => {
     it("should give 5 lines of small files", () => {
-      let fiveLines = generateLines(5);
-      assert.equal(head(split("fiveLines.txt"), fs), fiveLines);
+      let actual = head(["fiveLines.txt"], fs);
+      let fiveLines = [1, 2, 3, 4, 5].join("\n");
+      assert.equal(actual, fiveLines);
     });
   });
 
