@@ -13,7 +13,7 @@ const separator = {
 };
 
 const invalidCount = function(countArg) {
-  return isNaN(countArg - 0) || countArg < 1;
+  return isNaN(countArg) || countArg < 1;
 };
 
 const head = function(args, fs) {
