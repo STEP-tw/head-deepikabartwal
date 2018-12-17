@@ -78,13 +78,13 @@ describe("head", function() {
   describe("node head -n5 tenLines.txt", () => {
     it("should return 5 lines given file", function() {
       let fiveLines = generateLines(5);
-      assert.deepEqual(head(split("-n5 tenLines.txt"), fs), fiveLines);
+      assert.equal(head(split("-n5 tenLines.txt"), fs), fiveLines);
     });
   });
   describe("node head missingFile.txt", () => {
     it("should return missing error when missing file is given", function() {
       let errorMessage = "head: missingFile.txt: No such file or directory";
-      assert.deepEqual(head(split("missingFile.txt"), fs), errorMessage);
+      assert.equal(head(split("missingFile.txt"), fs), errorMessage);
     });
   });
   describe("node head 3 fiveLines.txt", function() {
@@ -94,7 +94,7 @@ describe("head", function() {
         "==> fiveLines.txt <==",
         generateLines(5)
       ].join("\n");
-      assert.deepEqual(head(split("3 fiveLines.txt"), fs), expected_output);
+      assert.equal(head(split("3 fiveLines.txt"), fs), expected_output);
     });
   });
   describe("node head fiveLines.txt fifteenLines.txt", function() {
@@ -106,7 +106,7 @@ describe("head", function() {
         generateLines(10)
       ].join("\n");
 
-      assert.deepEqual(
+      assert.equal(
         head(split("fiveLines.txt fifteenLines.txt"), fs),
         expected_output
       );
@@ -120,7 +120,7 @@ describe("head", function() {
         "==> fifteenLines.txt <==",
         generateLines(5)
       ].join("\n");
-      assert.deepEqual(
+      assert.equal(
         head(split("-n5 fiveLines.txt fifteenLines.txt"), fs),
         expected_output
       );
@@ -134,7 +134,7 @@ describe("head", function() {
         "==> fifteenLines.txt <==",
         generateLines(5)
       ].join("\n");
-      assert.deepEqual(
+      assert.equal(
         head(split("-n 5 fiveLines.txt fifteenLines.txt"), fs),
         expected_output
       );
@@ -147,10 +147,7 @@ describe("head", function() {
         generateLines(5),
         "head: abx: No such file or directory"
       ].join("\n");
-      assert.deepEqual(
-        head(split("-n 5 fiveLines.txt abx"), fs),
-        expected_output
-      );
+      assert.equal(head(split("-n 5 fiveLines.txt abx"), fs), expected_output);
     });
   });
   describe("node head -n 5 abc fiveLines.txt", function() {
@@ -166,31 +163,31 @@ describe("head", function() {
   describe("node head -n 0 fiveLines.txt", function() {
     it("should give illegal count error for zero as count", function() {
       let expected_output = "head: illegal line count -- 0";
-      assert.deepEqual(head(split("-n 0 fiveLines.txt"), fs), expected_output);
+      assert.equal(head(split("-n 0 fiveLines.txt"), fs), expected_output);
     });
   });
   describe("node head -n0 fiveLines.txt", function() {
     it("should give illegal count error for zero with -n", function() {
       let expected_output = "head: illegal line count -- 0";
-      assert.deepEqual(head(split("-n0 fiveLines.txt"), fs), expected_output);
+      assert.equal(head(split("-n0 fiveLines.txt"), fs), expected_output);
     });
   });
   describe("node head -n -1 fiveLines.txt", function() {
     it("should give illegal count error for negative count", function() {
       let expected_output = "head: illegal line count -- -1";
-      assert.deepEqual(head(split("-n -1 fiveLines.txt"), fs), expected_output);
+      assert.equal(head(split("-n -1 fiveLines.txt"), fs), expected_output);
     });
   });
   describe("node head -n a fiveLines.txt", function() {
     it("should give illegal count error for alphabet", function() {
       let expected_output = "head: illegal line count -- a";
-      assert.deepEqual(head(split("-n a fiveLines.txt"), fs), expected_output);
+      assert.equal(head(split("-n a fiveLines.txt"), fs), expected_output);
     });
   });
   describe("node head -na fiveLines.txt", function() {
     it("should give illegal line count error", function() {
       let expected_output = "head: illegal line count -- a";
-      assert.deepEqual(head(split("-na fiveLines.txt"), fs), expected_output);
+      assert.equal(head(split("-na fiveLines.txt"), fs), expected_output);
     });
   });
   describe("node head -c 1 fiveLines.txt", function() {
