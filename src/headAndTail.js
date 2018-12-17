@@ -50,12 +50,12 @@ const createArgsObject = function(type, count, filenames) {
   return { option, count, filenames };
 };
 
-const validateOption = function(optionParaCandidate) {
-  return optionParaCandidate == "-n" || optionParaCandidate == "-c";
+const isValidOption = function(optionCandidate) {
+  return optionCandidate == "-n" || optionCandidate == "-c";
 };
 
 const parseArgsWithOption = function(args) {
-  if (validateOption(args[0])) {
+  if (isValidOption(args[0])) {
     return createArgsObject(args[0], args[1], args.slice(2));
   }
   if (!isNaN(args[0].slice(1))) {
