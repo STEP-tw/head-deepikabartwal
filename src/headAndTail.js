@@ -12,14 +12,14 @@ const separator = {
   byte: ""
 };
 
-const invalidCount = function(countArg) {
+const isInvalidCount = function(countArg) {
   return isNaN(countArg) || countArg < 1;
 };
 
 const head = function(args, fs) {
   let { option, count, filenames } = parseArgs(args);
   let delim = separator[option];
-  if (invalidCount(count)) {
+  if (isInvalidCount(count)) {
     return "head: illegal " + option + " count -- " + count;
   }
   const getContent = function(path) {
