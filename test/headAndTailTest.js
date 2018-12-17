@@ -254,8 +254,9 @@ describe("head", function() {
   });
   describe("node head -c -2 fiveLines.txt", function() {
     it("should give illegal count error", function() {
+      let actual = head(split("-c -2 fiveLines.txt"), fs);
       let expected_output = "head: illegal byte count -- -2";
-      assert.equal(head(split("-c -2 fiveLines.txt"), fs), expected_output);
+      assert.equal(actual, expected_output);
     });
   });
 });
