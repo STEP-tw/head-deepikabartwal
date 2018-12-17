@@ -219,32 +219,37 @@ describe("head", function() {
   });
   describe("node head -c1 fiveLines.txt", function() {
     it("should give 1 as result", function() {
+      let actual = head(split("-c1 fiveLines.txt"), fs);
       let expected_output = "1";
-      assert.equal(head(split("-c1 fiveLines.txt"), fs), expected_output);
+      assert.equal(actual, expected_output);
     });
   });
   describe("node head -c0 fiveLines.txt", function() {
     it("should give illegal count error", function() {
+      let actual = head(split("-c0 fiveLines.txt"), fs);
       let expected_output = "head: illegal byte count -- 0";
-      assert.equal(head(split("-c0 fiveLines.txt"), fs), expected_output);
+      assert.equal(actual, expected_output);
     });
   });
   describe("node head -c 0 fiveLines.txt", function() {
     it("should give illegal byte error", function() {
+      let actual = head(split("-c 0 fiveLines.txt"), fs);
       let expected_output = "head: illegal byte count -- 0";
-      assert.equal(head(split("-c 0 fiveLines.txt"), fs), expected_output);
+      assert.equal(actual, expected_output);
     });
   });
   describe("node head -ca fiveLines.txt", function() {
     it("should give illegal count error", function() {
+      let actual = head(split("-ca fiveLines.txt"), fs);
       let expected_output = "head: illegal byte count -- a";
-      assert.equal(head(split("-ca fiveLines.txt"), fs), expected_output);
+      assert.equal(actual, expected_output);
     });
   });
   describe("node head -c a fiveLines.txt", function() {
     it("should give illegal count error", function() {
+      let actual = head(split("-c a fiveLines.txt"), fs);
       let expected_output = "head: illegal byte count -- a";
-      assert.equal(head(split("-c a fiveLines.txt"), fs), expected_output);
+      assert.equal(actual, expected_output);
     });
   });
   describe("node head -c -2 fiveLines.txt", function() {
