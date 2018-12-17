@@ -166,48 +166,55 @@ describe("head", function() {
 
   describe("node head -n 5 abc fiveLines.txt", function() {
     it("should give error of first file and 5 lines for second one", function() {
+      let actual = head(split("-n 5 abc fiveLines.txt"), fs);
       let expected_output = [
         "head: abc: No such file or directory",
         "==> fiveLines.txt <==",
         generateLines(5)
       ].join("\n");
-      assert.equal(head(split("-n 5 abc fiveLines.txt"), fs), expected_output);
+      assert.equal(actual, expected_output);
     });
   });
   describe("node head -n 0 fiveLines.txt", function() {
     it("should give illegal count error for zero as count", function() {
+      let actual = head(split("-n 0 fiveLines.txt"), fs);
       let expected_output = "head: illegal line count -- 0";
-      assert.equal(head(split("-n 0 fiveLines.txt"), fs), expected_output);
+      assert.equal(actual, expected_output);
     });
   });
   describe("node head -n0 fiveLines.txt", function() {
     it("should give illegal count error for zero with -n", function() {
+      let actual = head(split("-n0 fiveLines.txt"), fs);
       let expected_output = "head: illegal line count -- 0";
-      assert.equal(head(split("-n0 fiveLines.txt"), fs), expected_output);
+      assert.equal(actual, expected_output);
     });
   });
   describe("node head -n -1 fiveLines.txt", function() {
     it("should give illegal count error for negative count", function() {
+      let actual = head(split("-n -1 fiveLines.txt"), fs);
       let expected_output = "head: illegal line count -- -1";
-      assert.equal(head(split("-n -1 fiveLines.txt"), fs), expected_output);
+      assert.equal(actual, expected_output);
     });
   });
   describe("node head -n a fiveLines.txt", function() {
     it("should give illegal count error for alphabet", function() {
+      let actual = head(split("-n a fiveLines.txt"), fs);
       let expected_output = "head: illegal line count -- a";
-      assert.equal(head(split("-n a fiveLines.txt"), fs), expected_output);
+      assert.equal(actual, expected_output);
     });
   });
   describe("node head -na fiveLines.txt", function() {
     it("should give illegal line count error", function() {
+      let actual = head(split("-na fiveLines.txt"), fs);
       let expected_output = "head: illegal line count -- a";
-      assert.equal(head(split("-na fiveLines.txt"), fs), expected_output);
+      assert.equal(actual, expected_output);
     });
   });
   describe("node head -c 1 fiveLines.txt", function() {
     it("should give singleCharacter", function() {
+      let actual = head(split("-c 1 fiveLines.txt"), fs);
       let expected_output = "1";
-      assert.equal(head(split("-c 1 fiveLines.txt"), fs), expected_output);
+      assert.equal(actual, expected_output);
     });
   });
   describe("node head -c1 fiveLines.txt", function() {
