@@ -1,6 +1,11 @@
-const take = function(list,numberOfElements){
-  return list.slice(0,numberOfElements);
-}
+const take = function(list, numberOfElements) {
+  return list.slice(0, numberOfElements);
+};
 
-exports.take = take;
-
+const last = function(list, count) {
+  return list.slice(-count);
+};
+module.exports = {
+  take,
+  last
+};
