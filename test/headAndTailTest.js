@@ -48,43 +48,43 @@ const split = text => text.split(" ");
 describe("head", function() {
   it("'node head empty.txt' should give zero lines", () => {
     let args = split("empty.txt");
-    let actualOutput = head(fs, args);
+    let actualOutput = head(args, fs);
     equal(actualOutput, "");
   });
   describe("node head fifteenLines.text", () => {
     it("should give 10 lines", function() {
       let tenLines = generateLines(10);
-      equal(head(fs, split("fifteenLines.txt")), tenLines);
+      equal(head(split("fifteenLines.txt"), fs), tenLines);
     });
   });
   describe("node head fiveLines.txt", () => {
     it("should give 5 lines", () => {
       let fiveLines = generateLines(5);
-      equal(head(fs, split("fiveLines.txt")), fiveLines);
+      equal(head(split("fiveLines.txt"), fs), fiveLines);
     });
   });
   describe("node head -5 tenLines.txt", () => {
     it("should give 5 lines", function() {
       let fiveLines = generateLines(5);
-      equal(head(fs, split("-5 tenLines.txt")), fiveLines);
+      equal(head(split("-5 tenLines.txt"), fs), fiveLines);
     });
   });
   describe("node head -0 tenLines.txt", function() {
     it("should give illegal line count error", function() {
       let expected_output = "head: illegal line count -- 0";
-      equal(head(fs, split("-0 tenLines.txt")), expected_output);
+      equal(head(split("-0 tenLines.txt"), fs), expected_output);
     });
   });
   describe("node head -n5 tenLines.txt", () => {
     it("should return 5 lines", function() {
       let fiveLines = generateLines(5);
-      deepEqual(head(fs, split("-n5 tenLines.txt")), fiveLines);
+      deepEqual(head(split("-n5 tenLines.txt"), fs), fiveLines);
     });
   });
   describe("node head missingFile.txt", () => {
     it("should return error when missing file is given", function() {
       let errorMessage = "head: missingFile.txt: No such file or directory";
-      deepEqual(head(fs, split("missingFile.txt")), errorMessage);
+      deepEqual(head(split("missingFile.txt"), fs), errorMessage);
     });
   });
   describe("node head 3 fiveLines.txt", function() {
@@ -94,7 +94,7 @@ describe("head", function() {
         "==> fiveLines.txt <==",
         generateLines(5)
       ].join("\n");
-      deepEqual(head(fs, split("3 fiveLines.txt")), expected_output);
+      deepEqual(head(split("3 fiveLines.txt"), fs), expected_output);
     });
   });
   describe("node head fiveLines.txt fifteenLines.txt", function() {
@@ -107,7 +107,7 @@ describe("head", function() {
       ].join("\n");
 
       deepEqual(
-        head(fs, split("fiveLines.txt fifteenLines.txt")),
+        head(split("fiveLines.txt fifteenLines.txt"), fs),
         expected_output
       );
     });
@@ -121,7 +121,7 @@ describe("head", function() {
         generateLines(5)
       ].join("\n");
       deepEqual(
-        head(fs, split("-n5 fiveLines.txt fifteenLines.txt")),
+        head(split("-n5 fiveLines.txt fifteenLines.txt"), fs),
         expected_output
       );
     });
@@ -135,7 +135,7 @@ describe("head", function() {
         generateLines(5)
       ].join("\n");
       deepEqual(
-        head(fs, split("-n 5 fiveLines.txt fifteenLines.txt")),
+        head(split("-n 5 fiveLines.txt fifteenLines.txt"), fs),
         expected_output
       );
     });
@@ -147,7 +147,7 @@ describe("head", function() {
         generateLines(5),
         "head: abx: No such file or directory"
       ].join("\n");
-      deepEqual(head(fs, split("-n 5 fiveLines.txt abx")), expected_output);
+      deepEqual(head(split("-n 5 fiveLines.txt abx"), fs), expected_output);
     });
   });
   describe("node head -n 5 abc fiveLines.txt", function() {
@@ -157,79 +157,79 @@ describe("head", function() {
         "==> fiveLines.txt <==",
         generateLines(5)
       ].join("\n");
-      equal(head(fs, split("-n 5 abc fiveLines.txt")), expected_output);
+      equal(head(split("-n 5 abc fiveLines.txt"), fs), expected_output);
     });
   });
   describe("node head -n 0 fiveLines.txt", function() {
     it("should give illegal count error for zero as count", function() {
       let expected_output = "head: illegal line count -- 0";
-      deepEqual(head(fs, split("-n 0 fiveLines.txt")), expected_output);
+      deepEqual(head(split("-n 0 fiveLines.txt"), fs), expected_output);
     });
   });
   describe("node head -n0 fiveLines.txt", function() {
     it("should give illegal count error for zero with -n", function() {
       let expected_output = "head: illegal line count -- 0";
-      deepEqual(head(fs, split("-n0 fiveLines.txt")), expected_output);
+      deepEqual(head(split("-n0 fiveLines.txt"), fs), expected_output);
     });
   });
   describe("node head -n -1 fiveLines.txt", function() {
     it("should give illegal count error for negative count", function() {
       let expected_output = "head: illegal line count -- -1";
-      deepEqual(head(fs, split("-n -1 fiveLines.txt")), expected_output);
+      deepEqual(head(split("-n -1 fiveLines.txt"), fs), expected_output);
     });
   });
   describe("node head -n a fiveLines.txt", function() {
     it("should give illegal count error for alphabet", function() {
       let expected_output = "head: illegal line count -- a";
-      deepEqual(head(fs, split("-n a fiveLines.txt")), expected_output);
+      deepEqual(head(split("-n a fiveLines.txt"), fs), expected_output);
     });
   });
   describe("node head -na fiveLines.txt", function() {
     it("should give illegal line count error", function() {
       let expected_output = "head: illegal line count -- a";
-      deepEqual(head(fs, split("-na fiveLines.txt")), expected_output);
+      deepEqual(head(split("-na fiveLines.txt"), fs), expected_output);
     });
   });
   describe("node head -c 1 fiveLines.txt", function() {
     it("should give singleCharacter", function() {
       let expected_output = "1";
-      equal(head(fs, split("-c 1 fiveLines.txt")), expected_output);
+      equal(head(split("-c 1 fiveLines.txt"), fs), expected_output);
     });
   });
   describe("node head -c1 fiveLines.txt", function() {
     it("should give 1 as result", function() {
       let expected_output = "1";
-      equal(head(fs, split("-c1 fiveLines.txt")), expected_output);
+      equal(head(split("-c1 fiveLines.txt"), fs), expected_output);
     });
   });
   describe("node head -c0 fiveLines.txt", function() {
     it("should give illegal count error", function() {
       let expected_output = "head: illegal byte count -- 0";
-      equal(head(fs, split("-c0 fiveLines.txt")), expected_output);
+      equal(head(split("-c0 fiveLines.txt"), fs), expected_output);
     });
   });
   describe("node head -c 0 fiveLines.txt", function() {
     it("should give illegal byte error", function() {
       let expected_output = "head: illegal byte count -- 0";
-      equal(head(fs, split("-c 0 fiveLines.txt")), expected_output);
+      equal(head(split("-c 0 fiveLines.txt"), fs), expected_output);
     });
   });
   describe("node head -ca fiveLines.txt", function() {
     it("should give illegal count error", function() {
       let expected_output = "head: illegal byte count -- a";
-      equal(head(fs, split("-ca fiveLines.txt")), expected_output);
+      equal(head(split("-ca fiveLines.txt"), fs), expected_output);
     });
   });
   describe("node head -c a fiveLines.txt", function() {
     it("should give illegal count error", function() {
       let expected_output = "head: illegal byte count -- a";
-      equal(head(fs, split("-c a fiveLines.txt")), expected_output);
+      equal(head(split("-c a fiveLines.txt"), fs), expected_output);
     });
   });
   describe("node head -c -2 fiveLines.txt", function() {
     it("should give illegal count error", function() {
       let expected_output = "head: illegal byte count -- -2";
-      equal(head(fs, split("-c -2 fiveLines.txt")), expected_output);
+      equal(head(split("-c -2 fiveLines.txt"), fs), expected_output);
     });
   });
 });
@@ -293,7 +293,7 @@ describe("parseArgsWithOption", function() {
 describe("parseArgs", function() {
   describe("node head file.txt", function() {
     it("should return default parameter object when only file names is given", function() {
-      deepEqual(parseArgs(split("file.txt")), {
+      deepEqual(parseArgs(split("file.txt"), fs), {
         option: "line",
         count: 10,
         filenames: ["file.txt"]
@@ -302,7 +302,7 @@ describe("parseArgs", function() {
   });
   describe("node head -2 file.txt", function() {
     it("should return object with specified options", function() {
-      deepEqual(parseArgs(split("-2 testFile")), {
+      deepEqual(parseArgs(split("-2 testFile"), fs), {
         option: "line",
         count: 2,
         filenames: ["testFile"]
@@ -310,6 +310,7 @@ describe("parseArgs", function() {
     });
   });
 });
+
 describe("tail", function() {
   describe("node tail fifteenLines.txt", function() {
     it("should return last 10 lines of file", function() {
@@ -317,108 +318,108 @@ describe("tail", function() {
         .split("\n")
         .slice(5)
         .join("\n");
-      deepEqual(tail(fs, split("fifteenLines.txt")), expected_output);
+      deepEqual(tail(split("fifteenLines.txt"), fs), expected_output);
     });
   });
   describe("node tail fiveLines.txt", function() {
     it("should return 5 lines", function() {
       let expected_output = generateLines(5);
-      equal(tail(fs, split("fiveLines.txt")), expected_output);
+      equal(tail(split("fiveLines.txt"), fs), expected_output);
     });
   });
   describe("node tail tenLines.txt", function() {
     it("should return 10 lines", function() {
       let expected_output = generateLines(10);
-      equal(tail(fs, split("tenLines.txt")), expected_output);
+      equal(tail(split("tenLines.txt"), fs), expected_output);
     });
   });
   describe("node tail -5 tenLines.txt", function() {
     it("should return 10 lines", function() {
       let expected_output = generateLines(10).slice(10);
-      equal(tail(fs, split("-5 tenLines.txt")), expected_output);
+      equal(tail(split("-5 tenLines.txt"), fs), expected_output);
     });
   });
   describe("node tail missing", function() {
     it("should return missing file error", function() {
       let expected_output = "tail: missing: No such file or directory";
-      equal(tail(fs, split("missing")), expected_output);
+      equal(tail(split("missing"), fs), expected_output);
     });
   });
   describe("node tail -n3 fiveLines.txt", function() {
     it("should return 3 lines", function() {
       let expected_output = generateLines(5).slice(4);
-      equal(tail(fs, split("-n3 fiveLines.txt")), expected_output);
+      equal(tail(split("-n3 fiveLines.txt"), fs), expected_output);
     });
   });
   describe("node tail -n 3 fiveLines.txt", function() {
     it("should return 3 lines", function() {
       let expected_output = generateLines(5).slice(4);
-      equal(tail(fs, split("-n 3 fiveLines.txt")), expected_output);
+      equal(tail(split("-n 3 fiveLines.txt"), fs), expected_output);
     });
   });
   describe("node tail -n -3 fiveLines.txt", function() {
     it("should return 3 lines", function() {
       let expected_output = generateLines(5).slice(4);
-      equal(tail(fs, split("-n -3 fiveLines.txt")), expected_output);
+      equal(tail(split("-n -3 fiveLines.txt"), fs), expected_output);
     });
   });
   describe("node tail -n 0 fiveLines.txt", function() {
     it("should return empty string", function() {
-      equal(tail(fs, split("-n 0 fiveLines.txt")), "");
+      equal(tail(split("-n 0 fiveLines.txt"), fs), "");
     });
   });
   describe("node tail -n0 fiveLines.txt", function() {
     it("should return empty string", function() {
-      equal(tail(fs, split("-n0 fiveLines.txt")), "");
+      equal(tail(split("-n0 fiveLines.txt"), fs), "");
     });
   });
   describe("node tail -na fiveLines.txt", function() {
     it("should return illegal offset error", function() {
       let expected_output = "tail: illegal offset -- a";
-      equal(tail(fs, split("-na fiveLines.txt")), expected_output);
+      equal(tail(split("-na fiveLines.txt"), fs), expected_output);
     });
   });
   describe("node tail -n -a fiveLines.txt", function() {
     it("should return illegal offset error", function() {
       let expected_output = "tail: illegal offset -- -a";
-      equal(tail(fs, split("-n -a fiveLines.txt")), expected_output);
+      equal(tail(split("-n -a fiveLines.txt"), fs), expected_output);
     });
   });
   describe("node tail -c1 fiveLines.txt", function() {
     it("should return 5", function() {
-      equal(tail(fs, split("-c1 fiveLines.txt")), "5");
+      equal(tail(split("-c1 fiveLines.txt"), fs), "5");
     });
   });
   describe("node tail -c 1 fiveLines.txt", function() {
     it("should return 5", function() {
-      equal(tail(fs, split("-c 1 fiveLines.txt")), "5");
+      equal(tail(split("-c 1 fiveLines.txt"), fs), "5");
     });
   });
   describe("node tail -c 0 fiveLines.txt", function() {
     it("should return nothing", function() {
-      equal(tail(fs, split("-c 0 fiveLines.txt")), "");
+      equal(tail(split("-c 0 fiveLines.txt"), fs), "");
     });
   });
   describe("node tail -c0 fiveLines.txt", function() {
     it("should return nothing", function() {
-      equal(tail(fs, split("-c0 fiveLines.txt")), "");
+      equal(tail(split("-c0 fiveLines.txt"), fs), "");
     });
   });
   describe("node tail -ca fiveLines.txt", function() {
     it("should return illegal offset error", function() {
       let expected_output = "tail: illegal offset -- a";
-      equal(tail(fs, split("-ca fiveLines.txt")), expected_output);
+      equal(tail(split("-ca fiveLines.txt"), fs), expected_output);
     });
   });
   describe("node tail -c a fiveLines.txt", function() {
     it("should return illegal offset error", function() {
       let expected_output = "tail: illegal offset -- a";
-      equal(tail(fs, split("-c a fiveLines.txt")), expected_output);
+      equal(tail(split("-c a fiveLines.txt"), fs), expected_output);
     });
   });
   describe("node tail -c -1 fiveLines.txt", function() {
     it("should return 5", function() {
-      equal(tail(fs, split("-c -1 fiveLines.txt")), "5");
+      equal(tail(split("-c -1 fiveLines.txt"), fs), "5");
     });
   });
   describe("node tail fiveLines.txt fiveLines.txt", function() {
@@ -429,7 +430,7 @@ describe("tail", function() {
         "==> fiveLines.txt <==",
         generateLines(5)
       ].join("\n");
-      equal(tail(fs, split("fiveLines.txt fiveLines.txt")), expected_output);
+      equal(tail(split("fiveLines.txt fiveLines.txt"), fs), expected_output);
     });
   });
   describe("node tail fifteenLines.txt fiveLines.txt", function() {
@@ -440,7 +441,7 @@ describe("tail", function() {
         "==> fiveLines.txt <==",
         generateLines(5)
       ].join("\n");
-      equal(tail(fs, split("fifteenLines.txt fiveLines.txt")), expected_output);
+      equal(tail(split("fifteenLines.txt fiveLines.txt"), fs), expected_output);
     });
   });
   describe("node tail missing fiveLines.txt", function() {
@@ -450,7 +451,7 @@ describe("tail", function() {
         "==> fiveLines.txt <==",
         generateLines(5)
       ].join("\n");
-      equal(tail(fs, split("missing fiveLines.txt")), expected_output);
+      equal(tail(split("missing fiveLines.txt"), fs), expected_output);
     });
   });
   describe("node tail fiveLines.txt missing", function() {
@@ -460,7 +461,7 @@ describe("tail", function() {
         generateLines(5),
         "tail: missing: No such file or directory"
       ].join("\n");
-      equal(tail(fs, split("fiveLines.txt missing")), expected_output);
+      equal(tail(split("fiveLines.txt missing"), fs), expected_output);
     });
   });
   describe("node tail -1 fiveLines.txt missing", function() {
@@ -470,7 +471,7 @@ describe("tail", function() {
         "5",
         "tail: missing: No such file or directory"
       ].join("\n");
-      equal(tail(fs, split("-1 fiveLines.txt missing")), expected_output);
+      equal(tail(split("-1 fiveLines.txt missing"), fs), expected_output);
     });
   });
   describe("node tail -0 fiveLines.txt fiveLines.txt", function() {
@@ -481,7 +482,7 @@ describe("tail", function() {
         "==> fiveLines.txt <==",
         ""
       ].join("\n");
-      equal(tail(fs, split("-0 fiveLines.txt fiveLines.txt")), expected_output);
+      equal(tail(split("-0 fiveLines.txt fiveLines.txt"), fs), expected_output);
     });
   });
   describe("node tail -0 fiveLines.txt missing", function() {
@@ -491,7 +492,7 @@ describe("tail", function() {
         "",
         "tail: missing: No such file or directory"
       ].join("\n");
-      equal(tail(fs, split("-0 fiveLines.txt missing")), expected_output);
+      equal(tail(split("-0 fiveLines.txt missing"), fs), expected_output);
     });
   });
   describe("node tail -0 missing fiveLines.txt", function() {
@@ -501,7 +502,7 @@ describe("tail", function() {
         "==> fiveLines.txt <==",
         ""
       ].join("\n");
-      equal(tail(fs, split("-0 missing fiveLines.txt")), expected_output);
+      equal(tail(split("-0 missing fiveLines.txt"), fs), expected_output);
     });
   });
   describe("node tail -n1 fiveLines.txt fiveLines.txt", function() {
@@ -513,7 +514,7 @@ describe("tail", function() {
         "5"
       ].join("\n");
       equal(
-        tail(fs, split("-n1 fiveLines.txt fiveLines.txt")),
+        tail(split("-n1 fiveLines.txt fiveLines.txt"), fs),
         expected_output
       );
     });
@@ -527,7 +528,7 @@ describe("tail", function() {
         "5"
       ].join("\n");
       equal(
-        tail(fs, split("-n 1 fiveLines.txt fiveLines.txt")),
+        tail(split("-n 1 fiveLines.txt fiveLines.txt"), fs),
         expected_output
       );
     });
@@ -541,7 +542,7 @@ describe("tail", function() {
         "5"
       ].join("\n");
       equal(
-        tail(fs, split("-n -1 fiveLines.txt fiveLines.txt")),
+        tail(split("-n -1 fiveLines.txt fiveLines.txt"), fs),
         expected_output
       );
     });
@@ -553,7 +554,7 @@ describe("tail", function() {
         "5",
         "tail: missing: No such file or directory"
       ].join("\n");
-      equal(tail(fs, split("-n 1 fiveLines.txt missing")), expected_output);
+      equal(tail(split("-n 1 fiveLines.txt missing"), fs), expected_output);
     });
   });
   describe("node tail -n 0 fiveLines.txt fiveLines.txt", function() {
@@ -565,7 +566,7 @@ describe("tail", function() {
         ""
       ].join("\n");
       equal(
-        tail(fs, split("-n 0 fiveLines.txt fiveLines.txt")),
+        tail(split("-n 0 fiveLines.txt fiveLines.txt"), fs),
         expected_output
       );
     });
@@ -579,7 +580,7 @@ describe("tail", function() {
         ""
       ].join("\n");
       equal(
-        tail(fs, split("-n0 fiveLines.txt fiveLines.txt")),
+        tail(split("-n0 fiveLines.txt fiveLines.txt"), fs),
         expected_output
       );
     });
@@ -593,7 +594,7 @@ describe("tail", function() {
         "5"
       ].join("\n");
       equal(
-        tail(fs, split("-n -1 fiveLines.txt fiveLines.txt")),
+        tail(split("-n -1 fiveLines.txt fiveLines.txt"), fs),
         expected_output
       );
     });
@@ -602,7 +603,7 @@ describe("tail", function() {
     it("should return error for illegal offset", function() {
       let expected_output = "tail: illegal offset -- a";
       equal(
-        tail(fs, split("-na fiveLines.txt fiveLines.txt")),
+        tail(split("-na fiveLines.txt fiveLines.txt"), fs),
         expected_output
       );
     });
@@ -611,7 +612,7 @@ describe("tail", function() {
     it("should return error for illegal offset", function() {
       let expected_output = "tail: illegal offset -- a";
       equal(
-        tail(fs, split("-n a fiveLines.txt fiveLines.txt")),
+        tail(split("-n a fiveLines.txt fiveLines.txt"), fs),
         expected_output
       );
     });
@@ -625,7 +626,7 @@ describe("tail", function() {
         "5"
       ].join("\n");
       equal(
-        tail(fs, split("-c1 fiveLines.txt fiveLines.txt")),
+        tail(split("-c1 fiveLines.txt fiveLines.txt"), fs),
         expected_output
       );
     });
@@ -639,7 +640,7 @@ describe("tail", function() {
         "5"
       ].join("\n");
       equal(
-        tail(fs, split("-c 1 fiveLines.txt fiveLines.txt")),
+        tail(split("-c 1 fiveLines.txt fiveLines.txt"), fs),
         expected_output
       );
     });
@@ -653,7 +654,7 @@ describe("tail", function() {
         "5"
       ].join("\n");
       equal(
-        tail(fs, split("-c -1 fiveLines.txt fiveLines.txt")),
+        tail(split("-c -1 fiveLines.txt fiveLines.txt"), fs),
         expected_output
       );
     });
@@ -667,7 +668,7 @@ describe("tail", function() {
         ""
       ].join("\n");
       equal(
-        tail(fs, split("-c0 fiveLines.txt fiveLines.txt")),
+        tail(split("-c0 fiveLines.txt fiveLines.txt"), fs),
         expected_output
       );
     });
@@ -681,7 +682,7 @@ describe("tail", function() {
         ""
       ].join("\n");
       equal(
-        tail(fs, split("-c 0 fiveLines.txt fiveLines.txt")),
+        tail(split("-c 0 fiveLines.txt fiveLines.txt"), fs),
         expected_output
       );
     });
@@ -695,7 +696,7 @@ describe("tail", function() {
         "5"
       ].join("\n");
       equal(
-        tail(fs, split("-c -1 fiveLines.txt fiveLines.txt")),
+        tail(split("-c -1 fiveLines.txt fiveLines.txt"), fs),
         expected_output
       );
     });
@@ -704,7 +705,7 @@ describe("tail", function() {
     it("should return error for illegal offset", function() {
       let expected_output = "tail: illegal offset -- a";
       equal(
-        tail(fs, split("-na fiveLines.txt fiveLines.txt")),
+        tail(split("-na fiveLines.txt fiveLines.txt"), fs),
         expected_output
       );
     });
@@ -713,7 +714,7 @@ describe("tail", function() {
     it("should return error for illegal offset", function() {
       let expected_output = "tail: illegal offset -- a";
       equal(
-        tail(fs, split("-n a fiveLines.txt fiveLines.txt")),
+        tail(split("-n a fiveLines.txt fiveLines.txt"), fs),
         expected_output
       );
     });
@@ -725,7 +726,7 @@ describe("tail", function() {
         "5",
         "tail: missing: No such file or directory"
       ].join("\n");
-      equal(tail(fs, split("-c -1 fiveLines.txt missing")), expected_output);
+      equal(tail(split("-c -1 fiveLines.txt missing"), fs), expected_output);
     });
   });
 });
