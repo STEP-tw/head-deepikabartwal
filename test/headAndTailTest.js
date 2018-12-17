@@ -47,42 +47,42 @@ const split = text => text.split(" ");
 
 describe("head", function() {
   it("'node head empty.txt' should give zero lines", () => {
-    let args = split("empty.txt");
+    let args = ["empty.txt"];
     let actualOutput = head(args, fs);
     equal(actualOutput, "");
   });
   describe("node head fifteenLines.text", () => {
-    it("should give 10 lines", function() {
+    it("should give 10 lines of given file", function() {
       let tenLines = generateLines(10);
       equal(head(split("fifteenLines.txt"), fs), tenLines);
     });
   });
   describe("node head fiveLines.txt", () => {
-    it("should give 5 lines", () => {
+    it("should give 5 lines of small files", () => {
       let fiveLines = generateLines(5);
       equal(head(split("fiveLines.txt"), fs), fiveLines);
     });
   });
   describe("node head -5 tenLines.txt", () => {
-    it("should give 5 lines", function() {
+    it("should give 5 lines of given file", function() {
       let fiveLines = generateLines(5);
       equal(head(split("-5 tenLines.txt"), fs), fiveLines);
     });
   });
   describe("node head -0 tenLines.txt", function() {
-    it("should give illegal line count error", function() {
+    it("should give illegal line count error for zero", function() {
       let expected_output = "head: illegal line count -- 0";
       equal(head(split("-0 tenLines.txt"), fs), expected_output);
     });
   });
   describe("node head -n5 tenLines.txt", () => {
-    it("should return 5 lines", function() {
+    it("should return 5 lines given file", function() {
       let fiveLines = generateLines(5);
       deepEqual(head(split("-n5 tenLines.txt"), fs), fiveLines);
     });
   });
   describe("node head missingFile.txt", () => {
-    it("should return error when missing file is given", function() {
+    it("should return missing file error when missing file is given", function() {
       let errorMessage = "head: missingFile.txt: No such file or directory";
       deepEqual(head(split("missingFile.txt"), fs), errorMessage);
     });
