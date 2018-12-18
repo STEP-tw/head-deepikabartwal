@@ -32,6 +32,13 @@ const generateLines = function(numberOfLines) {
   }
   return line.join("\n");
 };
+const generateLinesFrom = function(startingNum, limit) {
+  let arrayLength = limit + 1 - startingNum;
+  return new Array(arrayLength)
+    .fill(0)
+    .map((x, y) => y + startingNum)
+    .join("\n");
+};
 const split = text => text.split(" ");
 
 const dummyFiles = {
@@ -430,25 +437,25 @@ describe("tail", function() {
   });
 
   describe("node tail -c1 fiveLines.txt", function() {
-    it("should return 5", function() {
+    it("should return last character of given file", function() {
       assert.equal(tail(split("-c1 fiveLines.txt"), fs), "5");
     });
   });
 
   describe("node tail -c 1 fiveLines.txt", function() {
-    it("should return 5", function() {
+    it("should return last character of given file", function() {
       assert.equal(tail(split("-c 1 fiveLines.txt"), fs), "5");
     });
   });
 
   describe("node tail -c 0 fiveLines.txt", function() {
-    it("should return nothing", function() {
+    it("should return nothing for count zero", function() {
       assert.equal(tail(split("-c 0 fiveLines.txt"), fs), "");
     });
   });
 
   describe("node tail -c0 fiveLines.txt", function() {
-    it("should return nothing", function() {
+    it("should return nothing for count zero", function() {
       assert.equal(tail(split("-c0 fiveLines.txt"), fs), "");
     });
   });
@@ -468,13 +475,13 @@ describe("tail", function() {
   });
 
   describe("node tail -c -1 fiveLines.txt", function() {
-    it("should return 5", function() {
+    it("should return last character of given file", function() {
       assert.equal(tail(split("-c -1 fiveLines.txt"), fs), "5");
     });
   });
 
   describe("node tail fiveLines.txt fiveLines.txt", function() {
-    it("should return 5 lines of each file", function() {
+    it("should return last 5 lines of both files", function() {
       let actual = tail(split("fiveLines.txt fiveLines.txt"), fs);
       let expectedOutput = [
         "==> fiveLines.txt <==",
