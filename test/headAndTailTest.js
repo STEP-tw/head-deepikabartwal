@@ -459,6 +459,7 @@ describe("tail", function() {
       assert.equal(tail(split("-ca fiveLines.txt"), fs), expected_output);
     });
   });
+
   describe("node tail -c a fiveLines.txt", function() {
     it("should return illegal offset error", function() {
       let expected_output = "tail: illegal offset -- a";
@@ -497,6 +498,7 @@ describe("tail", function() {
       assert.equal(actual, expected_output);
     });
   });
+
   describe("node tail missing fiveLines.txt", function() {
     it("should return error for first and 5 lines for second file", function() {
       let actual = tail(split("missing fiveLines.txt"), fs);
@@ -508,6 +510,7 @@ describe("tail", function() {
       assert.equal(actual, expected_output);
     });
   });
+
   describe("node tail fiveLines.txt missing", function() {
     it("should return error for last one and return 5 lines of first one", function() {
       let expected_output = [
@@ -518,6 +521,7 @@ describe("tail", function() {
       assert.equal(tail(split("fiveLines.txt missing"), fs), expected_output);
     });
   });
+
   describe("node tail -1 fiveLines.txt missing", function() {
     it("should return last line for first and error for missing file", function() {
       let expected_output = [
@@ -531,58 +535,52 @@ describe("tail", function() {
       );
     });
   });
+
   describe("node tail -0 fiveLines.txt fiveLines.txt", function() {
     it("should return nothing for both file only heading", function() {
+      let actual = tail(split("-0 fiveLines.txt fiveLines.txt"), fs);
       let expected_output = [
         "==> fiveLines.txt <==",
         "",
         "==> fiveLines.txt <==",
         ""
       ].join("\n");
-      assert.equal(
-        tail(split("-0 fiveLines.txt fiveLines.txt"), fs),
-        expected_output
-      );
+      assert.equal(actual, expected_output);
     });
   });
+
   describe("node tail -0 fiveLines.txt missing", function() {
     it("should return nothing for first file and error for second", function() {
+      let actual = tail(split("-0 fiveLines.txt missing"), fs);
       let expected_output = [
         "==> fiveLines.txt <==",
         "",
         "tail: missing: No such file or directory"
       ].join("\n");
-      assert.equal(
-        tail(split("-0 fiveLines.txt missing"), fs),
-        expected_output
-      );
+      assert.equal(actual, expected_output);
     });
   });
   describe("node tail -0 missing fiveLines.txt", function() {
     it("should return nothing for first file and error for second", function() {
+      let actual = tail(split("-0 missing fiveLines.txt"), fs);
       let expected_output = [
         "tail: missing: No such file or directory",
         "==> fiveLines.txt <==",
         ""
       ].join("\n");
-      assert.equal(
-        tail(split("-0 missing fiveLines.txt"), fs),
-        expected_output
-      );
+      assert.equal(actual, expected_output);
     });
   });
   describe("node tail -n1 fiveLines.txt fiveLines.txt", function() {
     it("should return 5 for each", function() {
+      let actual = tail(split("-n1 fiveLines.txt fiveLines.txt"), fs);
       let expected_output = [
         "==> fiveLines.txt <==",
         "5",
         "==> fiveLines.txt <==",
         "5"
       ].join("\n");
-      assert.equal(
-        tail(split("-n1 fiveLines.txt fiveLines.txt"), fs),
-        expected_output
-      );
+      assert.equal(actual, expected_output);
     });
   });
   describe("node tail -n 1 fiveLines.txt fiveLines.txt", function() {
@@ -772,33 +770,29 @@ describe("tail", function() {
   });
   describe("node tail -ca fiveLines.txt fiveLines.txt", function() {
     it("should return error for illegal offset", function() {
+      let actual = tail(split("-na fiveLines.txt fiveLines.txt"), fs);
       let expected_output = "tail: illegal offset -- a";
-      assert.equal(
-        tail(split("-na fiveLines.txt fiveLines.txt"), fs),
-        expected_output
-      );
+      assert.equal(actual, expected_output);
     });
   });
+
   describe("node tail -c a fiveLines.txt fiveLines.txt", function() {
     it("should return error for illegal offset", function() {
-      let expected_output = "tail: illegal offset -- a";
-      assert.equal(
-        tail(split("-n a fiveLines.txt fiveLines.txt"), fs),
-        expected_output
-      );
+      let actual = tail(split("-n a fiveLines.txt fiveLines.txt"), fs);
+      let expectedOutput = "tail: illegal offset -- a";
+      assert.equal(actual, expectedOutput);
     });
   });
+
   describe("node tail -c -1 fiveLines.txt missing", function() {
     it("should return 5 for first file and error for missing file", function() {
-      let expected_output = [
+      let actual = tail(split("-c -1 fiveLines.txt missing"), fs);
+      let expectedOutput = [
         "==> fiveLines.txt <==",
         "5",
         "tail: missing: No such file or directory"
       ].join("\n");
-      assert.equal(
-        tail(split("-c -1 fiveLines.txt missing"), fs),
-        expected_output
-      );
+      assert.equal(actual, expectedOutput);
     });
   });
 });
