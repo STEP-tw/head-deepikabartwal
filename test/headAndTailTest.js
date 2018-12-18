@@ -348,28 +348,28 @@ describe("parseArgs", function() {
 
 describe("tail", function() {
   describe("node tail fifteenLines.txt", function() {
-    it("should return last 10 lines of file", function() {
+    it("should return last 10 lines of file for default", function() {
       let expectedOutput = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15].join("\n");
       assert.deepEqual(tail(split("fifteenLines.txt"), fs), expectedOutput);
     });
   });
 
   describe("node tail fiveLines.txt", function() {
-    it("should return 5 lines", function() {
+    it("should return 5 lines of given smaller files for default", function() {
       let expectedOutput = generateLines(5);
       assert.equal(tail(split("fiveLines.txt"), fs), expectedOutput);
     });
   });
 
   describe("node tail tenLines.txt", function() {
-    it("should return 10 lines", function() {
+    it("should return 10 lines of files for default", function() {
       let expectedOutput = generateLines(10);
       assert.equal(tail(split("tenLines.txt"), fs), expectedOutput);
     });
   });
 
   describe("node tail -5 tenLines.txt", function() {
-    it("should return 10 lines", function() {
+    it("should return 10 lines of files for default", function() {
       let expectedOutput = generateLines(10).slice(10);
       assert.equal(tail(split("-5 tenLines.txt"), fs), expectedOutput);
     });
@@ -383,40 +383,40 @@ describe("tail", function() {
   });
 
   describe("node tail -n3 fiveLines.txt", function() {
-    it("should return 3 lines", function() {
+    it("should return 3 lines of files as specified", function() {
       let expectedOutput = generateLines(5).slice(4);
       assert.equal(tail(split("-n3 fiveLines.txt"), fs), expectedOutput);
     });
   });
 
   describe("node tail -n 3 fiveLines.txt", function() {
-    it("should return 3 lines", function() {
+    it("should return 3 lines of given file as specified", function() {
       let expectedOutput = generateLines(5).slice(4);
       assert.equal(tail(split("-n 3 fiveLines.txt"), fs), expectedOutput);
     });
   });
 
   describe("node tail -n -3 fiveLines.txt", function() {
-    it("should return 3 lines", function() {
+    it("should return 3 lines of given file", function() {
       let expectedOutput = generateLines(5).slice(4);
       assert.equal(tail(split("-n -3 fiveLines.txt"), fs), expectedOutput);
     });
   });
 
   describe("node tail -n 0 fiveLines.txt", function() {
-    it("should return empty string", function() {
+    it("should return empty string for empty file", function() {
       assert.equal(tail(split("-n 0 fiveLines.txt"), fs), "");
     });
   });
 
   describe("node tail -n0 fiveLines.txt", function() {
-    it("should return empty string", function() {
+    it("should return empty string for empty file", function() {
       assert.equal(tail(split("-n0 fiveLines.txt"), fs), "");
     });
   });
 
   describe("node tail -na fiveLines.txt", function() {
-    it("should return illegal offset error", function() {
+    it("should return illegal offset error for wrong count parameter", function() {
       let expectedOutput = "tail: illegal offset -- a";
       assert.equal(tail(split("-na fiveLines.txt"), fs), expectedOutput);
     });
