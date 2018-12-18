@@ -5,18 +5,15 @@ const {
   head,
   tail
 } = require("../src/headAndTail.js");
-
 const assert = require("assert");
 
 const fs = {};
-
 fs.readFileSync = function(path, encoding) {
   if (encoding != "utf-8") return;
   const content = dummyFiles[path];
   if (content == undefined) throw "no such file " + path;
   return content;
 };
-
 fs.existsSync = function(path) {
   const dummyFiles = {
     "tenLines.txt": generateLines(10),
@@ -35,6 +32,7 @@ const generateLines = function(numberOfLines) {
   }
   return line.join("\n");
 };
+const split = text => text.split(" ");
 
 const dummyFiles = {
   "tenLines.txt": generateLines(10),
@@ -42,8 +40,6 @@ const dummyFiles = {
   "fifteenLines.txt": generateLines(15),
   "empty.txt": generateLines(0)
 };
-
-const split = text => text.split(" ");
 
 describe("head", function() {
   it("'node head empty.txt' should give zero lines", () => {
@@ -121,7 +117,6 @@ describe("head", function() {
         "==> fifteenLines.txt <==",
         generateLines(10)
       ].join("\n");
-
       assert.equal(actual, expected_output);
     });
   });
@@ -175,6 +170,7 @@ describe("head", function() {
       assert.equal(actual, expected_output);
     });
   });
+
   describe("node head -n 0 fiveLines.txt", function() {
     it("should give illegal count error for zero as count", function() {
       let actual = head(split("-n 0 fiveLines.txt"), fs);
@@ -182,6 +178,7 @@ describe("head", function() {
       assert.equal(actual, expected_output);
     });
   });
+
   describe("node head -n0 fiveLines.txt", function() {
     it("should give illegal count error for zero with -n", function() {
       let actual = head(split("-n0 fiveLines.txt"), fs);
@@ -189,6 +186,7 @@ describe("head", function() {
       assert.equal(actual, expected_output);
     });
   });
+
   describe("node head -n -1 fiveLines.txt", function() {
     it("should give illegal count error for negative count", function() {
       let actual = head(split("-n -1 fiveLines.txt"), fs);
@@ -196,6 +194,7 @@ describe("head", function() {
       assert.equal(actual, expected_output);
     });
   });
+
   describe("node head -n a fiveLines.txt", function() {
     it("should give illegal count error for alphabet", function() {
       let actual = head(split("-n a fiveLines.txt"), fs);
@@ -203,6 +202,7 @@ describe("head", function() {
       assert.equal(actual, expected_output);
     });
   });
+
   describe("node head -na fiveLines.txt", function() {
     it("should give illegal line count error", function() {
       let actual = head(split("-na fiveLines.txt"), fs);
@@ -210,6 +210,7 @@ describe("head", function() {
       assert.equal(actual, expected_output);
     });
   });
+
   describe("node head -c 1 fiveLines.txt", function() {
     it("should give singleCharacter", function() {
       let actual = head(split("-c 1 fiveLines.txt"), fs);
@@ -217,6 +218,7 @@ describe("head", function() {
       assert.equal(actual, expected_output);
     });
   });
+
   describe("node head -c1 fiveLines.txt", function() {
     it("should give 1 as result", function() {
       let actual = head(split("-c1 fiveLines.txt"), fs);
@@ -224,6 +226,7 @@ describe("head", function() {
       assert.equal(actual, expected_output);
     });
   });
+
   describe("node head -c0 fiveLines.txt", function() {
     it("should give illegal count error", function() {
       let actual = head(split("-c0 fiveLines.txt"), fs);
@@ -231,6 +234,7 @@ describe("head", function() {
       assert.equal(actual, expected_output);
     });
   });
+
   describe("node head -c 0 fiveLines.txt", function() {
     it("should give illegal byte error", function() {
       let actual = head(split("-c 0 fiveLines.txt"), fs);
@@ -238,6 +242,7 @@ describe("head", function() {
       assert.equal(actual, expected_output);
     });
   });
+
   describe("node head -ca fiveLines.txt", function() {
     it("should give illegal count error", function() {
       let actual = head(split("-ca fiveLines.txt"), fs);
@@ -245,6 +250,7 @@ describe("head", function() {
       assert.equal(actual, expected_output);
     });
   });
+
   describe("node head -c a fiveLines.txt", function() {
     it("should give illegal count error", function() {
       let actual = head(split("-c a fiveLines.txt"), fs);
@@ -252,6 +258,7 @@ describe("head", function() {
       assert.equal(actual, expected_output);
     });
   });
+
   describe("node head -c -2 fiveLines.txt", function() {
     it("should give illegal count error", function() {
       let actual = head(split("-c -2 fiveLines.txt"), fs);
@@ -327,6 +334,7 @@ describe("parseArgs", function() {
       });
     });
   });
+
   describe("node head -2 file.txt", function() {
     it("should return object with specified options", function() {
       assert.deepEqual(parseArgs(split("-2 testFile"), fs), {
@@ -341,97 +349,110 @@ describe("parseArgs", function() {
 describe("tail", function() {
   describe("node tail fifteenLines.txt", function() {
     it("should return last 10 lines of file", function() {
-      let expected_output = generateLines(15)
-        .split("\n")
-        .slice(5)
-        .join("\n");
+      let expected_output = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15].join("\n");
       assert.deepEqual(tail(split("fifteenLines.txt"), fs), expected_output);
     });
   });
+
   describe("node tail fiveLines.txt", function() {
     it("should return 5 lines", function() {
       let expected_output = generateLines(5);
       assert.equal(tail(split("fiveLines.txt"), fs), expected_output);
     });
   });
+
   describe("node tail tenLines.txt", function() {
     it("should return 10 lines", function() {
       let expected_output = generateLines(10);
       assert.equal(tail(split("tenLines.txt"), fs), expected_output);
     });
   });
+
   describe("node tail -5 tenLines.txt", function() {
     it("should return 10 lines", function() {
       let expected_output = generateLines(10).slice(10);
       assert.equal(tail(split("-5 tenLines.txt"), fs), expected_output);
     });
   });
+
   describe("node tail missing", function() {
     it("should return missing file error", function() {
       let expected_output = "tail: missing: No such file or directory";
       assert.equal(tail(split("missing"), fs), expected_output);
     });
   });
+
   describe("node tail -n3 fiveLines.txt", function() {
     it("should return 3 lines", function() {
       let expected_output = generateLines(5).slice(4);
       assert.equal(tail(split("-n3 fiveLines.txt"), fs), expected_output);
     });
   });
+
   describe("node tail -n 3 fiveLines.txt", function() {
     it("should return 3 lines", function() {
       let expected_output = generateLines(5).slice(4);
       assert.equal(tail(split("-n 3 fiveLines.txt"), fs), expected_output);
     });
   });
+
   describe("node tail -n -3 fiveLines.txt", function() {
     it("should return 3 lines", function() {
       let expected_output = generateLines(5).slice(4);
       assert.equal(tail(split("-n -3 fiveLines.txt"), fs), expected_output);
     });
   });
+
   describe("node tail -n 0 fiveLines.txt", function() {
     it("should return empty string", function() {
       assert.equal(tail(split("-n 0 fiveLines.txt"), fs), "");
     });
   });
+
   describe("node tail -n0 fiveLines.txt", function() {
     it("should return empty string", function() {
       assert.equal(tail(split("-n0 fiveLines.txt"), fs), "");
     });
   });
+
   describe("node tail -na fiveLines.txt", function() {
     it("should return illegal offset error", function() {
       let expected_output = "tail: illegal offset -- a";
       assert.equal(tail(split("-na fiveLines.txt"), fs), expected_output);
     });
   });
+
   describe("node tail -n -a fiveLines.txt", function() {
     it("should return illegal offset error", function() {
       let expected_output = "tail: illegal offset -- -a";
       assert.equal(tail(split("-n -a fiveLines.txt"), fs), expected_output);
     });
   });
+
   describe("node tail -c1 fiveLines.txt", function() {
     it("should return 5", function() {
       assert.equal(tail(split("-c1 fiveLines.txt"), fs), "5");
     });
   });
+
   describe("node tail -c 1 fiveLines.txt", function() {
     it("should return 5", function() {
       assert.equal(tail(split("-c 1 fiveLines.txt"), fs), "5");
     });
   });
+
   describe("node tail -c 0 fiveLines.txt", function() {
     it("should return nothing", function() {
       assert.equal(tail(split("-c 0 fiveLines.txt"), fs), "");
     });
   });
+
   describe("node tail -c0 fiveLines.txt", function() {
     it("should return nothing", function() {
       assert.equal(tail(split("-c0 fiveLines.txt"), fs), "");
     });
   });
+
   describe("node tail -ca fiveLines.txt", function() {
     it("should return illegal offset error", function() {
       let expected_output = "tail: illegal offset -- a";
@@ -444,47 +465,47 @@ describe("tail", function() {
       assert.equal(tail(split("-c a fiveLines.txt"), fs), expected_output);
     });
   });
+
   describe("node tail -c -1 fiveLines.txt", function() {
     it("should return 5", function() {
       assert.equal(tail(split("-c -1 fiveLines.txt"), fs), "5");
     });
   });
+
   describe("node tail fiveLines.txt fiveLines.txt", function() {
     it("should return 5 lines of each file", function() {
+      let actual = tail(split("fiveLines.txt fiveLines.txt"), fs);
       let expected_output = [
         "==> fiveLines.txt <==",
         generateLines(5),
         "==> fiveLines.txt <==",
         generateLines(5)
       ].join("\n");
-      assert.equal(
-        tail(split("fiveLines.txt fiveLines.txt"), fs),
-        expected_output
-      );
+      assert.equal(actual, expected_output);
     });
   });
+
   describe("node tail fifteenLines.txt fiveLines.txt", function() {
     it("should return 10,5 lines", function() {
+      let actual = tail(split("fifteenLines.txt fiveLines.txt"), fs);
       let expected_output = [
         "==> fifteenLines.txt <==",
         generateLines(15).slice(10),
         "==> fiveLines.txt <==",
         generateLines(5)
       ].join("\n");
-      assert.equal(
-        tail(split("fifteenLines.txt fiveLines.txt"), fs),
-        expected_output
-      );
+      assert.equal(actual, expected_output);
     });
   });
   describe("node tail missing fiveLines.txt", function() {
     it("should return error for first and 5 lines for second file", function() {
+      let actual = tail(split("missing fiveLines.txt"), fs);
       let expected_output = [
         "tail: missing: No such file or directory",
         "==> fiveLines.txt <==",
         generateLines(5)
       ].join("\n");
-      assert.equal(tail(split("missing fiveLines.txt"), fs), expected_output);
+      assert.equal(actual, expected_output);
     });
   });
   describe("node tail fiveLines.txt missing", function() {
