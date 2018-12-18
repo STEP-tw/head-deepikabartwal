@@ -677,95 +677,81 @@ describe("tail", function() {
   });
   describe("node tail -n a fiveLines.txt fiveLines.txt", function() {
     it("should return error for illegal offset", function() {
+      let actual = tail(split("-n a fiveLines.txt fiveLines.txt"), fs);
       let expected_output = "tail: illegal offset -- a";
-      assert.equal(
-        tail(split("-n a fiveLines.txt fiveLines.txt"), fs),
-        expected_output
-      );
+      assert.equal(actual, expected_output);
     });
   });
   describe("node tail -c1 fiveLines.txt fiveLines.txt", function() {
     it("should return 5 in both file with title", function() {
+      let actual = tail(split("-c1 fiveLines.txt fiveLines.txt"), fs);
       let expected_output = [
         "==> fiveLines.txt <==",
         "5",
         "==> fiveLines.txt <==",
         "5"
       ].join("\n");
-      assert.equal(
-        tail(split("-c1 fiveLines.txt fiveLines.txt"), fs),
-        expected_output
-      );
+      assert.equal(actual, expected_output);
     });
   });
   describe("node tail -c 1 fiveLines.txt fiveLines.txt", function() {
     it("should return 5 in both file with title", function() {
+      let actual = tail(split("-c 1 fiveLines.txt fiveLines.txt"), fs);
       let expected_output = [
         "==> fiveLines.txt <==",
         "5",
         "==> fiveLines.txt <==",
         "5"
       ].join("\n");
-      assert.equal(
-        tail(split("-c 1 fiveLines.txt fiveLines.txt"), fs),
-        expected_output
-      );
+      assert.equal(actual, expected_output);
     });
   });
   describe("node tail -c -1 fiveLines.txt fiveLines.txt", function() {
     it("should return 5 in both file with title", function() {
+      let actual = tail(split("-c -1 fiveLines.txt fiveLines.txt"), fs);
       let expected_output = [
         "==> fiveLines.txt <==",
         "5",
         "==> fiveLines.txt <==",
         "5"
       ].join("\n");
-      assert.equal(
-        tail(split("-c -1 fiveLines.txt fiveLines.txt"), fs),
-        expected_output
-      );
+      assert.equal(actual, expected_output);
     });
   });
   describe("node tail -c0 fiveLines.txt fiveLines.txt", function() {
     it("should return nothing for both files with title", function() {
+      let actual = tail(split("-c0 fiveLines.txt fiveLines.txt"), fs);
       let expected_output = [
         "==> fiveLines.txt <==",
         "",
         "==> fiveLines.txt <==",
         ""
       ].join("\n");
-      assert.equal(
-        tail(split("-c0 fiveLines.txt fiveLines.txt"), fs),
-        expected_output
-      );
+      assert.equal(actual, expected_output);
     });
   });
   describe("node tail -c 0 fiveLines.txt fiveLines.txt", function() {
     it("should return nothing for both files with title", function() {
+      let actual = tail(split("-c 0 fiveLines.txt fiveLines.txt"), fs);
       let expected_output = [
         "==> fiveLines.txt <==",
         "",
         "==> fiveLines.txt <==",
         ""
       ].join("\n");
-      assert.equal(
-        tail(split("-c 0 fiveLines.txt fiveLines.txt"), fs),
-        expected_output
-      );
+      assert.equal(actual, expected_output);
     });
   });
   describe("node tail -c -1 fiveLines.txt fiveLines.txt", function() {
     it("should return 5 in both file with title", function() {
+      let actual = tail(split("-c -1 fiveLines.txt fiveLines.txt"), fs);
       let expected_output = [
         "==> fiveLines.txt <==",
         "5",
         "==> fiveLines.txt <==",
         "5"
       ].join("\n");
-      assert.equal(
-        tail(split("-c -1 fiveLines.txt fiveLines.txt"), fs),
-        expected_output
-      );
+      assert.equal(actual, expected_output);
     });
   });
   describe("node tail -ca fiveLines.txt fiveLines.txt", function() {
