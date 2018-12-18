@@ -579,7 +579,7 @@ describe('tail', function() {
     });
   });
   describe('node tail -n1 fiveLines.txt fiveLines.txt', function() {
-    it('should return 5 for each', function() {
+    it('should return last character for both', function() {
       let actual = tail(split('-n1 fiveLines.txt fiveLines.txt'), fs);
       let expectedOutput = [
         '==> fiveLines.txt <==',
@@ -591,7 +591,7 @@ describe('tail', function() {
     });
   });
   describe('node tail -n 1 fiveLines.txt fiveLines.txt', function() {
-    it('should return 5 for each', function() {
+    it('should return last character for both', function() {
       let actual = tail(split('-n 1 fiveLines.txt fiveLines.txt'), fs);
       let expectedOutput = [
         '==> fiveLines.txt <==',
@@ -603,7 +603,7 @@ describe('tail', function() {
     });
   });
   describe('node tail -n -1 fiveLines.txt fiveLines.txt', function() {
-    it('should return 5 for each', function() {
+    it('should return last character for both files', function() {
       let actual = tail(split('-n -1 fiveLines.txt fiveLines.txt'), fs);
       let expectedOutput = [
         '==> fiveLines.txt <==',
