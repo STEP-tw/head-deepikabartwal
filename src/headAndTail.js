@@ -1,4 +1,4 @@
-const take = require('./util/array.js').take;
+const { take, last } = require('./util/array.js');
 
 const parseArgs = function(args) {
   if (args[0].startsWith('-')) {
@@ -59,24 +59,23 @@ const parseArgsWithOption = function(args) {
   }
   return createArgsObject(args[0].slice(0, 2), args[0].slice(2), args.slice(1));
 };
-
+const fetchFileContent = function(fs, argsObject, path) {
+  let { count, delim } = argsObject;
+  if (!fs.existsSync(path)) {
+    return 'tail: ' + path + ': No such file or directory';
+  }
+  let lines = fs.readFileSync(path, 'utf-8').split(delim);
+  if (count == 0) {
+    return '';
+  }
+  return last(lines, Math.abs(count)).join(delim);
+};
 const tail = function(args, fs) {
   let { option, count, delim, filenames } = parseArgs(args);
   if (isNaN(count)) {
     return 'tail: illegal offset -- ' + count;
   }
-  const getContent = function(path) {
-    if (!fs.existsSync(path)) {
-      return 'tail: ' + path + ': No such file or directory';
-    }
-    let lines = fs
-      .readFileSync(path, 'utf-8')
-      .split(delim)
-      .reverse();
-    return take(lines, Math.abs(count))
-      .reverse()
-      .join(delim);
-  };
+  const getContent = fetchFileContent.bind(null, fs, { count, delim });
   const getContentWithHeadings = function(path) {
     let heading = '==> ' + path + ' <==';
     if (!fs.existsSync(path)) {
@@ -87,10 +86,7 @@ const tail = function(args, fs) {
   if (filenames.length > 1) {
     return filenames.map(getContentWithHeadings).join('\n');
   }
-  return filenames
-    .map(getContent)
-    .reverse()
-    .join(delim);
+  return getContent(filenames[0]);
 };
 
 module.exports = {
