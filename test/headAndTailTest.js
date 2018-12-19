@@ -77,9 +77,14 @@ describe('head', function() {
       assert.equal(actual, fiveLines);
     });
   });
-  describe('node head -5 tenLines.txt', () => {
-    it('should give 5 lines of given file', function() {
+  describe('for number of lines specifi', () => {
+    it('node head -5 tenLines.txt should give 5 lines of given file', function() {
       let actual = head(split('-5 tenLines.txt'), fs);
+      let fiveLines = generateLines(5);
+      assert.equal(actual, fiveLines);
+    });
+    it('node head -n5 tenLines.txt should return 5 lines given file', function() {
+      let actual = head(split('-n5 tenLines.txt'), fs);
       let fiveLines = generateLines(5);
       assert.equal(actual, fiveLines);
     });
@@ -90,14 +95,6 @@ describe('head', function() {
       let actual = head(split('-0 tenLines.txt'), fs);
       let expectedOutput = 'head: illegal line count -- 0';
       assert.equal(actual, expectedOutput);
-    });
-  });
-
-  describe('node head -n5 tenLines.txt', () => {
-    it('should return 5 lines given file', function() {
-      let actual = head(split('-n5 tenLines.txt'), fs);
-      let fiveLines = generateLines(5);
-      assert.equal(actual, fiveLines);
     });
   });
 
