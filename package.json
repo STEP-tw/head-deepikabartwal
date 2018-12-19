@@ -1,0 +1,28 @@
+{
+  "name": "head-tail",
+  "version": "1.0.0",
+  "description": "head and tail command using javascript",
+  "main": "head.js tail.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/STEP-tw/head-deepikabartwal.git"
+  },
+  "author": "DeepikaBartwal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/STEP-tw/head-deepikabartwal/issues"
+  },
+  "homepage": "https://github.com/STEP-tw/head-deepikabartwal#readme",
+  "dependencies": {
+    "fs": "0.0.1-security"
+  },
+  "devDependencies": {
+    "mocha": "^5.2.0"
+  }
+}
