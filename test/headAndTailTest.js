@@ -50,28 +50,33 @@ const dummyFiles = {
 };
 
 describe('head', function() {
-  it("'node head empty.txt' should give zero lines", () => {
-    let args = ['empty.txt'];
-    let actualOutput = head(args, fs);
-    assert.equal(actualOutput, '');
-  });
-
-  describe('node head fifteenLines.text', () => {
-    it('should give 10 lines of given file', function() {
+  describe('for default values of single file', () => {
+    it("'node head empty.txt' should give zero lines", () => {
+      let args = ['empty.txt'];
+      let actualOutput = head(args, fs);
+      assert.equal(actualOutput, '');
+    });
+    it('node head fifteenLines.text should give 10 lines of given file', function() {
       let actual = head(['fifteenLines.txt'], fs);
       let tenLines = generateLines(10);
       assert.equal(actual, tenLines);
     });
   });
 
-  describe('node head fiveLines.txt', () => {
-    it('should give 5 lines of small files', () => {
+  describe('for default values for smaller file', () => {
+    it('node head fiveLines.txt should give 5 lines of small files', () => {
       let actual = head(['fiveLines.txt'], fs);
       let fiveLines = [1, 2, 3, 4, 5].join('\n');
       assert.equal(actual, fiveLines);
     });
   });
-
+  describe('for argument greater than number of lines in file', () => {
+    it('node head -10 fiveLines.txt should return 5 lines of the given file', () => {
+      let actual = head(split('-10 fiveLines.txt'), fs);
+      let fiveLines = [1, 2, 3, 4, 5].join('\n');
+      assert.equal(actual, fiveLines);
+    });
+  });
   describe('node head -5 tenLines.txt', () => {
     it('should give 5 lines of given file', function() {
       let actual = head(split('-5 tenLines.txt'), fs);
@@ -281,6 +286,7 @@ describe('createArgsObject', function() {
     assert.deepEqual(createArgsObject('-n', 100, ['testFile']), {
       option: 'line',
       count: 100,
+      delim: '\n',
       filenames: ['testFile']
     });
     assert.deepEqual(
@@ -288,6 +294,7 @@ describe('createArgsObject', function() {
       {
         option: 'byte',
         count: 12,
+        delim: '',
         filenames: ['testfile', 'sampleFile', 'addFunction.js']
       }
     );
@@ -299,6 +306,7 @@ describe('parseArgsWithOption', function() {
     assert.deepEqual(parseArgsWithOption(['-n', '3', 'testfile']), {
       option: 'line',
       count: 3,
+      delim: '\n',
       filenames: ['testfile']
     });
   });
@@ -306,6 +314,7 @@ describe('parseArgsWithOption', function() {
     assert.deepEqual(parseArgsWithOption(['-3', 'testfile']), {
       option: 'line',
       count: 3,
+      delim: '\n',
       filenames: ['testfile']
     });
   });
@@ -313,6 +322,7 @@ describe('parseArgsWithOption', function() {
     assert.deepEqual(parseArgsWithOption(['-n7', 'testfile']), {
       option: 'line',
       count: 7,
+      delim: '\n',
       filenames: ['testfile']
     });
   });
@@ -320,6 +330,7 @@ describe('parseArgsWithOption', function() {
     assert.deepEqual(parseArgsWithOption(['-c3', 'testfile']), {
       option: 'byte',
       count: 3,
+      delim: '',
       filenames: ['testfile']
     });
   });
@@ -327,6 +338,7 @@ describe('parseArgsWithOption', function() {
     assert.deepEqual(parseArgsWithOption(['-c', '3', 'testfile']), {
       option: 'byte',
       count: 3,
+      delim: '',
       filenames: ['testfile']
     });
   });
@@ -338,6 +350,7 @@ describe('parseArgs', function() {
       assert.deepEqual(parseArgs(split('file.txt'), fs), {
         option: 'line',
         count: 10,
+        delim: '\n',
         filenames: ['file.txt']
       });
     });
@@ -348,6 +361,7 @@ describe('parseArgs', function() {
       assert.deepEqual(parseArgs(split('-2 testFile'), fs), {
         option: 'line',
         count: 2,
+        delim: '\n',
         filenames: ['testFile']
       });
     });
