@@ -70,19 +70,24 @@ const fetchFileContent = function(fs, argsObject, path) {
   }
   return last(lines, Math.abs(count)).join(delim);
 };
+const addHeadingtoContent = function(getContent, existsSync, path) {
+  let heading = '==> ' + path + ' <==';
+  if (!existsSync(path)) {
+    return getContent(path);
+  }
+  return heading + '\n' + getContent(path);
+};
 const tail = function(args, fs) {
   let { option, count, delim, filenames } = parseArgs(args);
   if (isNaN(count)) {
     return 'tail: illegal offset -- ' + count;
   }
   const getContent = fetchFileContent.bind(null, fs, { count, delim });
-  const getContentWithHeadings = function(path) {
-    let heading = '==> ' + path + ' <==';
-    if (!fs.existsSync(path)) {
-      return 'tail: ' + path + ': No such file or directory';
-    }
-    return heading + '\n' + getContent(path);
-  };
+  const getContentWithHeadings = addHeadingtoContent.bind(
+    null,
+    getContent,
+    fs.existsSync
+  );
   if (filenames.length > 1) {
     return filenames.map(getContentWithHeadings).join('\n');
   }
