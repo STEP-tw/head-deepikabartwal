@@ -59,10 +59,11 @@ const parseArgsWithOption = function(args) {
   }
   return createArgsObject(args[0].slice(0, 2), args[0].slice(2), args.slice(1));
 };
+
 const fetchFileContent = function(fs, argsObject, path) {
-  let { count, delim } = argsObject;
+  let { count, delim, filterName } = argsObject;
   if (!fs.existsSync(path)) {
-    return 'tail: ' + path + ': No such file or directory';
+    return filterName + ': ' + path + ': No such file or directory';
   }
   let lines = fs.readFileSync(path, 'utf-8').split(delim);
   if (count == 0) {
@@ -70,20 +71,27 @@ const fetchFileContent = function(fs, argsObject, path) {
   }
   return last(lines, Math.abs(count)).join(delim);
 };
-const addHeadingtoContent = function(getContent, existsSync, path) {
+
+const addHeadertoContent = function(getContent, existsSync, path) {
   let heading = '==> ' + path + ' <==';
   if (!existsSync(path)) {
     return getContent(path);
   }
   return heading + '\n' + getContent(path);
 };
+
 const tail = function(args, fs) {
   let { option, count, delim, filenames } = parseArgs(args);
   if (isNaN(count)) {
     return 'tail: illegal offset -- ' + count;
   }
-  const getContent = fetchFileContent.bind(null, fs, { count, delim });
-  const getContentWithHeadings = addHeadingtoContent.bind(
+  let filterName = 'tail';
+  const getContent = fetchFileContent.bind(null, fs, {
+    count,
+    delim,
+    filterName
+  });
+  const getContentWithHeadings = addHeadertoContent.bind(
     null,
     getContent,
     fs.existsSync
